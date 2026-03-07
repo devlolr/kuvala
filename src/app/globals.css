@@ -1,26 +1,294 @@
 @import "tailwindcss";
 
+/* ============================================================
+   KUVALA HERITAGE — Global Design System
+   Fluid typography · Heritage palette · Dark mode ready
+   ============================================================ */
+
+/* ── Heritage Color Tokens ─────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core palette */
+  --color-earth:      #6B3F1F;  /* Deep warm brown — headings, borders */
+  --color-earth-light:#8B5A35;  /* Lighter earth */
+  --color-terracotta: #C4622D;  /* Burnt orange — accents, hover */
+  --color-gold:       #C9982A;  /* Antique gold — CTA, badges   */
+  --color-gold-light: #E4B84A;  /* Lighter gold — glows          */
+  --color-moss:       #4A5E3A;  /* Forest moss — tags            */
+  --color-slate:      #1C2333;  /* Dark slate — dark mode base   */
+  --color-slate-mid:  #2A3347;  /* Mid slate — cards in dark     */
+  --color-stone:      #8A8A7A;  /* Stone grey — body text        */
+  --color-parchment:  #F5EDD8;  /* Warm off-white — light bg     */
+  --color-ivory:      #FDFAF4;  /* Purest ivory — card bg        */
+
+  /* Semantic aliases */
+  --background:       var(--color-ivory);
+  --foreground:       var(--color-slate);
+  --surface:          #FFFFFF;
+  --surface-raised:   var(--color-parchment);
+  --border:           #E2D5C0;
+  --border-gold:      var(--color-gold);
+  --accent:           var(--color-gold);
+  --accent-hover:     var(--color-gold-light);
+  --muted:            var(--color-stone);
+  --heading-font:     'Cinzel', serif;
+  --body-font:        'Inter', system-ui, sans-serif;
+  --gujarati-font:    'Noto Sans Gujarati', sans-serif;
+
+  /* Fluid spacing scale */
+  --space-xs:  clamp(0.25rem, 0.5vw,  0.5rem);
+  --space-sm:  clamp(0.5rem,  1vw,    0.75rem);
+  --space-md:  clamp(0.75rem, 1.5vw,  1rem);
+  --space-lg:  clamp(1rem,    2vw,    1.5rem);
+  --space-xl:  clamp(1.5rem,  3vw,    2.5rem);
+  --space-2xl: clamp(2rem,    5vw,    4rem);
+  --space-3xl: clamp(3rem,    7vw,    6rem);
+
+  /* Fluid typography scale */
+  --text-xs:   clamp(0.65rem,  1vw + 0.25rem, 0.75rem);
+  --text-sm:   clamp(0.8rem,   1.2vw + 0.3rem, 0.875rem);
+  --text-base: clamp(0.9rem,   1.5vw + 0.3rem, 1rem);
+  --text-lg:   clamp(1rem,     2vw + 0.3rem,   1.125rem);
+  --text-xl:   clamp(1.1rem,   2.5vw + 0.3rem, 1.25rem);
+  --text-2xl:  clamp(1.25rem,  3vw + 0.3rem,   1.5rem);
+  --text-3xl:  clamp(1.5rem,   4vw + 0.3rem,   2rem);
+  --text-4xl:  clamp(1.875rem, 5vw + 0.5rem,   2.5rem);
+  --text-5xl:  clamp(2.5rem,   6vw + 0.5rem,   3.75rem);
+  --text-6xl:  clamp(3rem,     8vw + 0.5rem,   5rem);
+  --text-hero: clamp(2.5rem,   9vw + 0.5rem,   7rem);
+
+  /* Radii & Shadows */
+  --radius-sm:  0.375rem;
+  --radius-md:  0.75rem;
+  --radius-lg:  1.25rem;
+  --radius-xl:  2rem;
+  --radius-full: 9999px;
+
+  --shadow-sm:  0 1px 3px rgba(107, 63, 31, 0.08);
+  --shadow-md:  0 4px 12px rgba(107, 63, 31, 0.12);
+  --shadow-lg:  0 8px 32px rgba(107, 63, 31, 0.16);
+  --shadow-gold: 0 4px 24px rgba(201, 152, 42, 0.25);
+  --shadow-glow: 0 0 40px rgba(201, 152, 42, 0.15);
+
+  /* Transitions */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:   250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   400ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ── Dark Mode ──────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --background:     var(--color-slate);
+  --foreground:     var(--color-parchment);
+  --surface:        var(--color-slate-mid);
+  --surface-raised: #324060;
+  --border:         #3A4A6A;
+  --muted:          #9AACCB;
+  --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Tailwind v4 Theme Integration ─────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background:   var(--background);
+  --color-foreground:   var(--foreground);
+  --color-surface:      var(--surface);
+  --color-earth:        var(--color-earth);
+  --color-terracotta:   var(--color-terracotta);
+  --color-gold:         var(--color-gold);
+  --color-gold-light:   var(--color-gold-light);
+  --color-moss:         var(--color-moss);
+  --color-slate:        var(--color-slate);
+  --color-slate-mid:    var(--color-slate-mid);
+  --color-stone:        var(--color-stone);
+  --color-parchment:    var(--color-parchment);
+  --color-ivory:        var(--color-ivory);
+  --font-sans:          var(--body-font);
+  --font-display:       var(--heading-font);
+  --font-gujarati:      var(--gujarati-font);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base Reset & Typography ────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--body-font);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-base), color var(--transition-base);
 }
+
+/* Selection */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-slate);
+}
+
+/* Focus rings */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ── Heritage Typography Classes ────────────────────────────── */
+.font-display       { font-family: var(--heading-font); }
+.font-gujarati      { font-family: var(--gujarati-font); }
+.text-hero          { font-size: var(--text-hero); }
+.text-6xl-fluid     { font-size: var(--text-6xl); }
+.text-5xl-fluid     { font-size: var(--text-5xl); }
+.text-4xl-fluid     { font-size: var(--text-4xl); }
+.text-3xl-fluid     { font-size: var(--text-3xl); }
+.text-2xl-fluid     { font-size: var(--text-2xl); }
+.text-xl-fluid      { font-size: var(--text-xl); }
+
+/* ── Gradient Utilities ─────────────────────────────────────── */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(201, 152, 42, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(196, 98,  45, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, rgba(74,  94,  58, 0.08) 0%, transparent 70%),
+    var(--color-slate);
+  animation: mesh-shift 12s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-shift {
+  0%   { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  100% { background-position: 10% 15%, 90% 85%, 55% 45%; }
+}
+
+.gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-earth) 100%);
+}
+
+.gradient-heritage {
+  background: linear-gradient(
+    135deg,
+    var(--color-earth)      0%,
+    var(--color-terracotta) 40%,
+    var(--color-gold)       100%
+  );
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold), var(--color-terracotta));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Glass Morphism ─────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-dark {
+  background: rgba(28, 35, 51, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(201, 152, 42, 0.2);
+}
+
+.glass-parchment {
+  background: rgba(245, 237, 216, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 152, 42, 0.3);
+}
+
+/* ── Card Styles ────────────────────────────────────────────── */
+.card-heritage {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 0.75rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.card-heritage:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+}
+
+/* ── Gold Border Shimmer ────────────────────────────────────── */
+.border-shimmer {
+  position: relative;
+}
+
+.border-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--color-gold), var(--color-terracotta), var(--color-gold));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background-size: 300% 300%;
+  animation: shimmer-border 3s linear infinite;
+}
+
+@keyframes shimmer-border {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--color-gold); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-terracotta); }
+
+/* ── React Flow Overrides ───────────────────────────────────── */
+.react-flow__background       { background: var(--color-slate) !important; }
+.react-flow__minimap          { background: var(--color-slate-mid) !important; border-radius: var(--radius-md); }
+.react-flow__controls         { box-shadow: var(--shadow-md) !important; }
+.react-flow__controls-button  { background: var(--surface) !important; border-color: var(--border) !important; }
+.react-flow__controls-button:hover { background: var(--color-gold) !important; }
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 152, 42, 0.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(201, 152, 42, 0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-float     { animation: float 6s ease-in-out infinite; }
+.animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.6s ease-out both; }
+
+/* ── Utility: section padding ───────────────────────────────── */
+.section-pad { padding-block: var(--space-3xl); }
+.section-pad-sm { padding-block: var(--space-2xl); }
+.container-narrow { max-width: min(90rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }
+.container-wide   { max-width: min(100rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }

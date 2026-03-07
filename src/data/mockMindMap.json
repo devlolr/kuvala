@@ -1,0 +1,92 @@
+[
+  {
+    "_id": "era-17th",
+    "name": "17th Century",
+    "era": "17th Century",
+    "role": "Historical Era",
+    "type": "era",
+    "parentId": null,
+    "bio": "The founding era of Kuvala, when the village was established by early settlers."
+  },
+  {
+    "_id": "ancestor-1",
+    "name": "Founder Chief",
+    "era": "17th Century",
+    "role": "Village Founder",
+    "type": "ancestor",
+    "parentId": null,
+    "bio": "The legendary founder who established Kuvala and built the first temple."
+  },
+  {
+    "_id": "monument-1",
+    "name": "Original Shiva Temple",
+    "era": "17th Century",
+    "role": "Place of Worship",
+    "type": "monument",
+    "parentId": "ancestor-1",
+    "bio": "The first structure built in Kuvala, dedicated to Lord Shiva."
+  },
+  {
+    "_id": "ancestor-2",
+    "name": "Elder Chieftain",
+    "era": "17th Century",
+    "role": "Community Leader",
+    "type": "ancestor",
+    "parentId": "ancestor-1",
+    "bio": "Son of the Founder Chief who expanded the village's boundaries."
+  },
+  {
+    "_id": "event-1",
+    "name": "Great Migration",
+    "era": "17th Century",
+    "role": "Historical Event",
+    "type": "event",
+    "parentId": "ancestor-2",
+    "bio": "A significant migration event that brought artisans and farmers to Kuvala."
+  },
+  {
+    "_id": "era-19th",
+    "name": "19th Century",
+    "era": "19th Century",
+    "role": "Historical Era",
+    "type": "era",
+    "parentId": null,
+    "bio": "A period of growth and establishment of community institutions in Kuvala."
+  },
+  {
+    "_id": "ancestor-3",
+    "name": "Trustee Maheshbhai",
+    "era": "19th Century",
+    "role": "Temple Trustee",
+    "type": "ancestor",
+    "parentId": null,
+    "bio": "Established the Panjrapole and the Chabutro in service of animals and birds."
+  },
+  {
+    "_id": "monument-2",
+    "name": "Chabutro (Bird Tower)",
+    "era": "19th Century",
+    "role": "Community Institution",
+    "type": "chabutro",
+    "parentId": "ancestor-3",
+    "bio": "The iconic bird-feeding tower standing at the heart of Kuvala village."
+  },
+  {
+    "_id": "monument-3",
+    "name": "Panjrapole",
+    "era": "19th Century",
+    "role": "Animal Shelter",
+    "type": "panjrapole",
+    "parentId": "ancestor-3",
+    "bio": "A shelter providing care and refuge for cows and other animals."
+  },
+  {
+    "_id": "era-modern",
+    "name": "Modern Era",
+    "era": "Modern Era",
+    "role": "Historical Era",
+    "type": "era",
+    "parentId": null,
+    "bio": "The current era of Kuvala, preserving heritage while embracing modernity."
+  }
+]
