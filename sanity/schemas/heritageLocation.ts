@@ -102,6 +102,13 @@ export const heritageLocationSchema = defineType({
       type:  'array',
       of:    [{ type: 'image', options: { hotspot: true } }],
     }),
+    defineField({
+      name: 'featured',
+      title: 'Featured on Homepage',
+      type: 'boolean',
+      description: 'Check to highlight this location on the site homepage',
+      initialValue: false,
+    }),
   ],
   preview: {
     select: { title: 'title', media: 'image', subtitle: 'category' },

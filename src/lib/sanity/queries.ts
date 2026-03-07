@@ -9,11 +9,11 @@ import { groq } from 'next-sanity';
 
 /** 3 featured monuments for the home page bento grid */
 export const FEATURED_MONUMENTS_QUERY = groq`
-  *[_type == "monument" && featured == true] | order(_updatedAt desc)[0...3] {
+  *[_type == "heritageLocation" && featured == true] | order(_updatedAt desc)[0...3] {
     _id,
     title,
     slug,
-    period,
+    "period": foundedYear,
     "image": image.asset->url,
     description[0..0]
   }
@@ -21,7 +21,7 @@ export const FEATURED_MONUMENTS_QUERY = groq`
 
 /** All monument slugs — used by generateStaticParams */
 export const ALL_MONUMENT_SLUGS_QUERY = groq`
-  *[_type == "monument"] { "slug": slug.current }
+  *[_type == "heritageLocation"] { "slug": slug.current }
 `;
 
 /* ── Heritage Location Queries ────────────────────────────── */

@@ -33,40 +33,44 @@ interface StatCard {
   gradient: string;
 }
 
-const STATS: StatCard[] = [
+const BASE_STATS: Omit<StatCard, 'value'>[] = [
   {
-    key:      'stats.monuments',
-    value:    12,
+    key: 'stats.monuments',
     icon:     '🏛️',
     gradient: 'from-earth to-terracotta',
   },
   {
-    key:      'stats.history',
-    value:    400,
+    key: 'stats.history',
     suffix:   '+',
     icon:     '📜',
     gradient: 'from-gold to-earth',
   },
   {
-    key:      'stats.ancestors',
-    value:    200,
+    key: 'stats.ancestors',
     suffix:   '+',
     icon:     '🧬',
     gradient: 'from-moss to-earth',
   },
   {
-    key:      'stats.events',
-    value:    24,
+    key: 'stats.events',
     suffix:   '+',
     icon:     '🎉',
     gradient: 'from-terracotta to-gold',
   },
 ];
 
-export default function QuickStats() {
+export default function QuickStats({ initialStats }: { initialStats?: any }) {
   const ref     = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
   const { t }   = useI18n();
+
+  // Map live data or fallback to defaults
+  const stats: StatCard[] = [
+    { ...BASE_STATS[0], value: initialStats?.locations || 0 }, // Locations
+    { ...BASE_STATS[1], value: 400 }, // History is static 400+ years
+    { ...BASE_STATS[2], value: initialStats?.ancestors || 0 }, // Ancestors
+    { ...BASE_STATS[3], value: 0 }, // Events (add count query later if needed, default to 0 for now)
+  ];
 
   return (
     <section
@@ -87,7 +91,7 @@ export default function QuickStats() {
           animate={isInView ? 'visible' : 'hidden'}
           className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
-          {STATS.map((stat) => (
+          {stats.map((stat) => (
             <motion.div
               key={stat.key}
               variants={ANIMATION_PRESETS.staggerItem}

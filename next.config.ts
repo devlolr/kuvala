@@ -20,11 +20,6 @@ const nextConfig: NextConfig = {
    * React Flow requires certain packages to be transpiled.
    */
   transpilePackages: ['@xyflow/react'],
-
-  /**
-   * Sanity uses Node.js-only APIs — exclude from browser/edge bundling.
-   */
-  serverExternalPackages: ['@sanity/client', 'sanity'],
 };
 
 export default nextConfig;

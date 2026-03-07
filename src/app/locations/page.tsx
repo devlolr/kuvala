@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { sanityFetch } from '@/lib/sanity/client';
 import { ALL_LOCATIONS_QUERY } from '@/lib/sanity/queries';
-import LocationsGrid, { MOCK_LOCATIONS, type HeritageLocation } from '@/components/locations/LocationsGrid';
+import LocationsGrid from '@/components/locations/LocationsGrid';
+import { MOCK_LOCATIONS, type HeritageLocation } from '@/data/mockLocations';
 
 export const metadata: Metadata = {
   title: 'Heritage Locations',

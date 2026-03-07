@@ -2,11 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/client';
-import {
-  LOCATION_BY_SLUG_QUERY,
-  ALL_LOCATION_SLUGS_QUERY,
-} from '@/lib/sanity/queries';
-import { MOCK_LOCATIONS } from '@/components/locations/LocationsGrid';
+import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
+import { MOCK_LOCATIONS } from '@/data/mockLocations';
 
 export const revalidate = 3600;
 

@@ -1,6 +1,5 @@
 import { createClient as createSanityClient, type SanityClient } from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
-import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
+import { createImageUrlBuilder } from '@sanity/image-url';
 
 /**
  * Sanity Client Configuration
@@ -28,7 +27,7 @@ export const sanityWriteClient: SanityClient = createSanityClient({
 
 /* ── Image URL Builder ────────────────────────────────────── */
 
-const builder = imageUrlBuilder(sanityClient);
+const builder = createImageUrlBuilder(sanityClient);
 
 /**
  * Build an optimised Sanity image URL.
@@ -36,7 +35,7 @@ const builder = imageUrlBuilder(sanityClient);
  * @example
  * urlFor(monument.image).width(800).height(600).format('webp').url()
  */
-export function urlFor(source: SanityImageSource) {
+export function urlFor(source: any) {
   return builder.image(source);
 }
 
@@ -58,7 +57,7 @@ export async function sanityFetch<T>(
 
   try {
     return await sanityClient.fetch<T>(query, params, {
-      next: { revalidate: 3600 }, // ISR: revalidate every 1 hour
+      next: { revalidate: 0 }, // Set to 0 during dev. Switch back to 3600 for production. ToDo
     });
   } catch (err: any) {
     console.warn('[SanityFetch Error] Falling back to mock data.', err.message);
