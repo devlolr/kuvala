@@ -17,7 +17,7 @@ export default async function LocationsPage() {
 
   if (!locations || locations.length === 0) {
     return (
-      <div className="min-h-screen bg-background pt-20">
+      <div className="min-h-screen bg-background pt-8">
         <EmptyState
           title="The Heritage Scrolls are Being Restored"
           message="We couldn't find any location data in our digital archives right now. Our curators are notified!"
@@ -27,7 +27,7 @@ export default async function LocationsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <div className="min-h-screen bg-background pt-8">
       {/* Header */}
       <div className="gradient-mesh py-16 text-center">
         <p className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-3">

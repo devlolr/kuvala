@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,35 +16,58 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen,    setIsOpen]    = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
+  const [hidden, setHidden] = useState(false);
+
   const pathname  = usePathname();
   const { t }     = useI18n();
   const { lang, toggle } = useLanguageToggle();
 
-  // Detect scroll for glass effect
+  // Detect scroll for glass effect and hide-on-scroll-down
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 24);
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Glass effect toggle
+      setScrolled(currentScrollY > 24);
+
+      // Hide on scroll down, show on scroll up
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHidden(true); // Scrolling down -> hide
+      } else if (currentScrollY < lastScrollY) {
+        setHidden(false); // Scrolling up -> show
+      }
+
+      lastScrollY = currentScrollY;
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close drawer on route change
-  useEffect(() => { setIsOpen(false); }, [pathname]);
+  // Close drawer on route change safely
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   return (
     <>
       <header
         role="banner"
         className={`
-          fixed top-0 left-0 right-0 z-50
-          transition-all duration-300
-          ${scrolled
-            ? 'glass-dark shadow-lg border-b border-gold/20 py-3'
-            : 'bg-transparent py-5'
-          }
+          sticky top-0 z-50
+          transition-transform duration-300 ease-in-out
+          ${hidden ? '-translate-y-full' : 'translate-y-0'}
         `}
       >
-        <div className="container-wide flex items-center justify-between">
-          {/* Logo */}
+        <div className={`
+          transition-all duration-300 w-full
+          bg-slate border-b border-gold/20
+          ${scrolled ? 'py-2 md:py-3 shadow-md' : 'py-4 md:py-5'}
+        `}>
+          <div className="container-wide flex items-center justify-between">
+            {/* Logo */}
           <Link href="/" aria-label="Kuvala Heritage Home" className="flex items-center gap-4 group">
             <span className="w-11 h-11 rounded-full gradient-gold flex items-center justify-center text-ivory font-display font-bold text-lg shadow-gold group-hover:scale-110 transition-transform duration-300">
               ક
@@ -128,6 +151,7 @@ export default function Navbar() {
               />
             </button>
           </div>
+        </div>
         </div>
       </header>
 

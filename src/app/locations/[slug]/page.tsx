@@ -65,7 +65,7 @@ export default async function LocationDetailPage({
   };
 
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <div className="min-h-screen bg-background pt-8">
       {/* Hero */}
       <div className="relative h-80 md:h-[28rem] bg-slate overflow-hidden">
         {loc.image ? (

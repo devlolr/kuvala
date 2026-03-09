@@ -20,7 +20,7 @@ export default async function EventsPage() {
 
   if (!events || events.length === 0) {
     return (
-      <div className="min-h-screen bg-background pt-20">
+      <div className="min-h-screen bg-background pt-8">
         <EmptyState
           title="The Festival Drums are Quiet..."
           message="No upcoming events are scheduled at the moment. Our community elders are planning the next gathering — stay tuned!"
@@ -34,7 +34,7 @@ export default async function EventsPage() {
   const featuredEvent = events[0];
 
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <div className="min-h-screen bg-background pt-8">
       {/* Header */}
       <div className="gradient-mesh py-16 text-center">
         <p className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-3">

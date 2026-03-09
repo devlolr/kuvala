@@ -16,7 +16,7 @@ export default function LegacyPage() {
   return (
     <div className="flex flex-col" style={{ height: '100svh' }}>
       {/* Page header */}
-      <div className="bg-slate border-b border-gold/20 pt-20 pb-4 px-4 md:px-8 flex items-end justify-between gap-4">
+      <div className="bg-slate border-b border-gold/20 pt-6 pb-4 px-4 md:px-8 flex items-end justify-between gap-4">
         <div>
           <p className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-1">
             Interactive Heritage
