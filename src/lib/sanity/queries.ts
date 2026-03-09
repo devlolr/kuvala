@@ -31,7 +31,7 @@ export const ALL_LOCATIONS_QUERY = groq`
   *[_type == "heritageLocation"] | order(title asc) {
     _id,
     title,
-    slug,
+    "slug": slug.current,
     category,
     excerpt,
     "image": image.asset->url,
