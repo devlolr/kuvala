@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
-import { MOCK_LOCATIONS } from '@/data/mockLocations';
 
 export const revalidate = 3600;
 
@@ -25,12 +24,7 @@ interface LocationDetail {
 /* ── Static Params ──────────────────────────────────────────── */
 export async function generateStaticParams() {
   const slugs = await sanityFetch<Array<{ slug: string }>>(ALL_LOCATION_SLUGS_QUERY);
-
-  // Include mock slugs as fallback during development
-  const mockSlugs = MOCK_LOCATIONS.map(l => ({ slug: l.slug }));
-  const allSlugs  = [...slugs, ...mockSlugs];
-  const unique    = Array.from(new Set(allSlugs.map(s => s.slug))).map(slug => ({ slug }));
-  return unique;
+  return slugs || [];
 }
 
 /* ── Metadata ───────────────────────────────────────────────── */
@@ -43,11 +37,11 @@ export async function generateMetadata({
   const location = await sanityFetch<LocationDetail | null>(
     LOCATION_BY_SLUG_QUERY, { slug },
   );
-  const mock = MOCK_LOCATIONS.find(l => l.slug === slug);
-  const title = location?.title ?? mock?.title ?? 'Heritage Location';
+
+  const title = location?.title ?? 'Heritage Location';
   return {
     title,
-    description: location?.excerpt ?? mock?.excerpt ?? `Explore ${title} — part of Kuvala's living heritage.`,
+    description: location?.excerpt ?? `Explore ${title} — part of Kuvala's living heritage.`,
   };
 }
 
@@ -58,23 +52,13 @@ export default async function LocationDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  // Try Sanity first, fall back to mock
-  const fromSanity = await sanityFetch<LocationDetail | null>(
+  const location = await sanityFetch<LocationDetail | null>(
     LOCATION_BY_SLUG_QUERY, { slug },
   );
-  const mockMatch  = MOCK_LOCATIONS.find(l => l.slug === slug);
 
-  if (!fromSanity && !mockMatch) notFound();
+  if (!location) notFound();
 
-  const loc: LocationDetail = fromSanity ?? {
-    _id:   mockMatch!._id,
-    title:  mockMatch!.title,
-    slug:   mockMatch!.slug,
-    category: mockMatch!.category,
-    foundedYear: mockMatch!.foundedYear,
-    excerpt: mockMatch!.excerpt,
-  };
+  const loc: LocationDetail = location;
 
   const CATEGORY_ICONS: Record<string, string> = {
     temple: '🕍', devasthan: '🙏', chabutro: '🕊️', panjrapole: '🐄', other: '🏛️',

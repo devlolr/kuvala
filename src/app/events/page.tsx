@@ -4,6 +4,7 @@ import { sanityFetch } from '@/lib/sanity/client';
 import { UPCOMING_EVENTS_QUERY } from '@/lib/sanity/queries';
 import EventCard from '@/components/events/EventCard';
 import RegistrationForm from '@/components/events/RegistrationForm';
+import EmptyState from '@/components/ui/EmptyState';
 import type { SanityEvent } from '@/components/events/EventCard';
 
 export const metadata: Metadata = {
@@ -13,35 +14,24 @@ export const metadata: Metadata = {
 
 export const revalidate = 1800; // 30 min
 
-/* ── Mock events fallback ───────────────────────────────────── */
-const MOCK_EVENTS: SanityEvent[] = [
-  {
-    _id: 'evt-1',
-    title: 'Navratri Celebration 2024',
-    slug: 'navratri-2024',
-    date: '2024-10-03',
-    location: 'Kuvala Main Temple Ground',
-    capacity: 500,
-    excerpt: 'Nine nights of devotional dance, music, and community celebration at the heart of Kuvala village.',
-    image: undefined,
-  },
-  {
-    _id: 'evt-2',
-    title: 'Founding Day Heritage Walk',
-    slug: 'founding-day-walk',
-    date: '2024-11-15',
-    location: 'Kuvala Village Square',
-    capacity: 100,
-    excerpt: "A guided walk through Kuvala's historical landmarks, led by village elders sharing living memory.",
-    image: undefined,
-  },
-];
-
 export default async function EventsPage() {
   const today  = new Date().toISOString().split('T')[0];
   const events = await sanityFetch<SanityEvent[]>(UPCOMING_EVENTS_QUERY, { today });
-  const displayed = events?.length > 0 ? events : MOCK_EVENTS;
-  const featuredEvent = displayed[0];
+
+  if (!events || events.length === 0) {
+    return (
+      <div className="min-h-screen bg-background pt-20">
+        <EmptyState
+          title="The Festival Drums are Quiet..."
+          message="No upcoming events are scheduled at the moment. Our community elders are planning the next gathering — stay tuned!"
+          actionLabel="Explore Heritage"
+          actionHref="/locations"
+        />
+      </div>
+    );
+  }
+
+  const featuredEvent = events[0];
 
   return (
     <div className="min-h-screen bg-background pt-20">
@@ -67,7 +57,7 @@ export default async function EventsPage() {
             </h2>
             <Suspense fallback={<p className="text-stone">Loading events…</p>}>
               <div className="flex flex-col gap-4">
-                {displayed.map(event => (
+                {events.map(event => (
                   <EventCard key={event._id} event={event} />
                 ))}
               </div>

@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import { sanityFetch } from '@/lib/sanity/client';
 import { ALL_LOCATIONS_QUERY } from '@/lib/sanity/queries';
 import LocationsGrid from '@/components/locations/LocationsGrid';
-import { MOCK_LOCATIONS, type HeritageLocation } from '@/data/mockLocations';
+import EmptyState from '@/components/ui/EmptyState';
+import { type HeritageLocation } from '@/data/mockLocations';
 
 export const metadata: Metadata = {
   title: 'Heritage Locations',
@@ -13,7 +14,17 @@ export const revalidate = 3600;
 
 export default async function LocationsPage() {
   const locations = await sanityFetch<HeritageLocation[]>(ALL_LOCATIONS_QUERY);
-  const displayed = locations?.length > 0 ? locations : MOCK_LOCATIONS;
+
+  if (!locations || locations.length === 0) {
+    return (
+      <div className="min-h-screen bg-background pt-20">
+        <EmptyState
+          title="The Heritage Scrolls are Being Restored"
+          message="We couldn't find any location data in our digital archives right now. Our curators are notified!"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background pt-20">
@@ -31,7 +42,7 @@ export default async function LocationsPage() {
       </div>
 
       <div className="container-wide section-pad">
-        <LocationsGrid locations={displayed} />
+        <LocationsGrid locations={locations} />
       </div>
     </div>
   );
