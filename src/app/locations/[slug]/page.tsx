@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
 
-export const dynamicParams = false; // Force strict static generation for Cloudflare Pages
+export const runtime = 'edge';
 
 /* ── Types ─────────────────────────────────────────────────── */
 interface LocationDetail {
@@ -21,11 +21,7 @@ interface LocationDetail {
   gallery?:       string[];
 }
 
-/* ── Static Params ──────────────────────────────────────────── */
-export async function generateStaticParams() {
-  const slugs = await sanityFetch<Array<{ slug: string }>>(ALL_LOCATION_SLUGS_QUERY);
-  return slugs || [];
-}
+
 
 /* ── Metadata ───────────────────────────────────────────────── */
 export async function generateMetadata({
