@@ -10,8 +10,11 @@
  */
 
 import { StudioBase } from './StudioBase';
+export const dynamic = 'force-static';
 
-export const runtime = 'edge';
+export function generateStaticParams() {
+  return [{ tool: [] }];
+}
 
 export default function StudioPage() {
   return <StudioBase />;
