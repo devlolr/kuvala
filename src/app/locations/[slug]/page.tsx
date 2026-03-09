@@ -4,8 +4,6 @@ import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
 
-export const revalidate = 3600;
-
 /* ── Types ─────────────────────────────────────────────────── */
 interface LocationDetail {
   _id:           string;
