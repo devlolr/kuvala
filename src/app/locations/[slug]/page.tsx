@@ -5,7 +5,7 @@ import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
 
 /* ── Route Config ─────────────────────────────────────────── */
-export const dynamicParams = false; // Next.js will return 404 for ungenerated slugs
+export const runtime = 'edge';
 /* ── Types ─────────────────────────────────────────────────── */
 interface LocationDetail {
   _id:           string;
@@ -22,12 +22,6 @@ interface LocationDetail {
 }
 
 
-
-/* ── Static Params ──────────────────────────────────────────── */
-export async function generateStaticParams() {
-  const slugs = await sanityFetch<Array<{ slug: string }>>(ALL_LOCATION_SLUGS_QUERY);
-  return slugs || [];
-}
 
 /* ── Metadata ───────────────────────────────────────────────── */
 export async function generateMetadata({
