@@ -22,7 +22,7 @@ export const sanityClient: SanityClient = createSanityClient(sanityConfig);
 export const sanityWriteClient: SanityClient = createSanityClient({
   ...sanityConfig,
   useCdn: false,
-  token: process.env.SANITY_WRITE_TOKEN,
+  token: process.env.SANITY_API_TOKEN,
 });
 
 /* ── Image URL Builder ────────────────────────────────────── */
