@@ -1,7 +1,11 @@
 export { metadata, viewport } from 'next-sanity/studio';
 
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+
+export function generateStaticParams() {
+  return [{ tool: [] }];
+}
+
 export default function StudioLayout({ children }: { children: React.ReactNode }) {
   return children;
 }
