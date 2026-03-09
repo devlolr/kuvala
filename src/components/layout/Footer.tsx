@@ -86,9 +86,9 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 text-stone text-xs">
-          <p>© {currentYear} Kuvala Heritage Trust. {t('footer.rights')}</p>
+          <p>© {currentYear} Shree Kuvala Jain Sangh. {t('footer.rights')}</p>
           <p className="font-gujarati text-stone/60">
-            © {currentYear} કુવળા હેરિટેજ ટ્રસ્ટ
+            © {currentYear} કુવળા જૈન સંહ
           </p>
         </div>
       </div>

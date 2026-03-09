@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description:
     'Discover the living heritage of Kuvala — ancient temples, community institutions, ancestral mind-maps, and timeless traditions preserved for generations.',
   keywords: ['Kuvala', 'heritage', 'temples', 'Gujarat', 'legacy', 'history', 'ancestors'],
-  authors: [{ name: 'Kuvala Heritage Trust' }],
+  authors: [{ name: 'Shree Kuvala Jain Sangh' }],
   openGraph: {
     type: 'website',
     locale: 'en_IN',

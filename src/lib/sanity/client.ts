@@ -57,7 +57,7 @@ export async function sanityFetch<T>(
 
   try {
     return await sanityClient.fetch<T>(query, params, {
-      next: { revalidate: 0 }, // Set to 0 during dev. Switch back to 3600 for production. ToDo
+      next: { revalidate: 3600 }, // Set to 0 during dev. Switch back to 3600 for production. ToDo
     });
   } catch (err: any) {
     console.warn('[SanityFetch Error] Falling back to mock data.', err.message);

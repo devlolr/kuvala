@@ -54,7 +54,7 @@ export default function Navbar() {
                 Kuvala
               </span>
               <span className="text-gold/80 text-xs tracking-widest uppercase">
-                Heritage
+                કુવાળા
               </span>
             </div>
           </Link>
