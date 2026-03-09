@@ -9,12 +9,10 @@
  * (e.g. /studio/desk/heritageLocation) to work correctly.
  */
 
-import { NextStudio } from 'next-sanity/studio';
-import config from '../../../../sanity.config';
-
+import { StudioBase } from './StudioBase';
 
 export const runtime = 'edge';
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  return <StudioBase />;
 }
