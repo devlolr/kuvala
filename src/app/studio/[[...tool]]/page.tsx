@@ -12,7 +12,7 @@
 import { NextStudio } from 'next-sanity/studio';
 import config from '../../../../sanity.config';
 
-export const runtime = 'edge';
+export const dynamic = 'force-static'; // Studio is a static SPA, don't try to SSR it on Edge
 
 export default function StudioPage() {
   return <NextStudio config={config} />;

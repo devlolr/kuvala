@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
 
+export const dynamicParams = false; // Force strict static generation for Cloudflare Pages
+
 /* ── Types ─────────────────────────────────────────────────── */
 interface LocationDetail {
   _id:           string;
