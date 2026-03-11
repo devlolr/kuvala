@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:worker": "opennextjs-cloudflare build --skipWranglerConfigCheck",
+    "prepare": "husky",
     "start": "next start",
     "lint": "eslint"
   },
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "husky": "^9.1.7",
     "tailwindcss": "^4",
     "typescript": "^5",
     "wrangler": "^4.72.0"
