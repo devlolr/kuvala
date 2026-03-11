@@ -2,6 +2,7 @@
   "name": "v1",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.11.1",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,7 +17,6 @@
     "@xyflow/react": "^12.10.1",
     "framer-motion": "^12.35.0",
     "next": "16.1.6",
-    "next-sanity": "^12.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "zod": "^4.3.6"

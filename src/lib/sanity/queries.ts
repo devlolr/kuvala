@@ -1,4 +1,6 @@
-import { groq } from 'next-sanity';
+/** Lightweight GROQ tag for syntax highlighting */
+const groq = (strings: TemplateStringsArray, ...values: any[]) =>
+  strings.reduce((acc, str, i) => acc + str + (values[i] ?? ''), '');
 
 /**
  * All GROQ queries in one place.
