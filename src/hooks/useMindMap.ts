@@ -2,15 +2,6 @@
 
 /**
  * useMindMap — Flat JSON → React Flow nodes + edges
- *
- * Translates an array of 200+ flat AncestorNode records from Sanity into
- * the exact { nodes, edges } format that @xyflow/react expects.
- *
- * Architecture: "Sub-flows" pattern — high-level era groups are rendered
- * first. Individual nodes inside an era are only mounted when the user
- * expands that group. This keeps the DOM small on low-end devices.
- *
- * Expand/collapse state lives in this hook — HeritageMap is a pure renderer.
  */
 
 import { useState, useMemo, useCallback } from 'react';
@@ -19,22 +10,21 @@ import type { Node, Edge } from '@xyflow/react';
 /* ── Types ─────────────────────────────────────────────────── */
 
 export interface AncestorRecord {
-  _id:       string;
-  name:      string;
-  era:       string;           // e.g. "17th Century"
-  role?:     string;
-  parentId?: string | null;    // _id of parent record (or null for root)
-  type:      'ancestor' | 'event' | 'monument' | 'temple' | 'devasthan' | 'chabutro' | 'panjrapole';
-  bio?:      string;
+  _id:           string;
+  Name:          {
+    en: string;
+    gu: string;
+  };
+  ParentID:      string | null;
+  AlwaysVisible: boolean;
 }
 
 export type HeritageNode = Node<{
-  label:    string;
-  role?:    string;
-  type:     AncestorRecord['type'] | 'era';
-  bio?:     string;
-  count?:   number;   // only on era group nodes
-  expanded?: boolean; // only on era group nodes
+  label:           { en: string; gu: string };
+  isAlwaysVisible: boolean;
+  hasChildren:     boolean;
+  expanded:        boolean;
+  onToggle:        (id: string) => void;
 }>;
 
 export type HeritageEdge = Edge;
@@ -42,163 +32,132 @@ export type HeritageEdge = Edge;
 interface UseMindMapReturn {
   nodes:         HeritageNode[];
   edges:         HeritageEdge[];
-  expandGroup:   (eraId: string)   => void;
-  collapseGroup: (eraId: string)   => void;
-  toggleGroup:   (eraId: string)   => void;
-  expandedEras:  Set<string>;
+  toggleNode:    (id: string) => void;
+  collapseAll:   () => void;
+  expandedNodes: Set<string>;
 }
 
 /* ── Layout constants ───────────────────────────────────────── */
-// Vertical layout: eras stack on Y axis, children fan out to the right.
-const ERA_NODE_WIDTH    = 240;
-const ERA_NODE_HEIGHT   = 90;
-const CHILD_NODE_WIDTH  = 200;
-const CHILD_NODE_HEIGHT = 76;
-
-// Vertical spacing between consecutive era group nodes
-const ERA_Y_GAP         = 32;   // gap between era node bottom and next era node top
-// Horizontal offset from era node centre to child column
-const CHILD_X_OFFSET    = 300;
-// Vertical gap between sibling child nodes
-const CHILD_Y_GAP       = 20;   // gap between child node bottom and next child top
+const NODE_WIDTH  = 260; 
+const NODE_HEIGHT = 100; 
+const X_GAP       = 360; 
+const Y_GAP       = 40;  
 
 /* ── Hook ───────────────────────────────────────────────────── */
 
 export function useMindMap(records: AncestorRecord[]): UseMindMapReturn {
-  const [expandedEras, setExpandedEras] = useState<Set<string>>(
-    () => new Set(), // all collapsed by default — performance-first
-  );
+  // Use a simple ID set. If a node is in the set, its children are visible.
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(() => {
+    // Initially expand level 0 (roots), following AlwaysVisible logic
+    const set = new Set<string>();
+    records.forEach(r => {
+      if (r.AlwaysVisible) set.add(r._id);
+    });
+    return set;
+  });
 
-  /** Group flat records by era */
-  const byEra = useMemo(() => {
-    const map = new Map<string, AncestorRecord[]>();
-    for (const rec of records) {
-      const era = rec.era ?? 'Unknown Era';
-      const existing = map.get(era) ?? [];
-      map.set(era, [...existing, rec]);
-    }
-    return map;
+  const toggleNode = useCallback((id: string) => {
+    setExpandedNodes(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }, []);
+
+  const collapseAll = useCallback(() => {
+    // "Collapse All" should prune it back to ONLY root nodes.
+    // If we only have AlwaysVisible on the VERY roots, then this works perfectly.
+    const next = new Set<string>();
+    records.forEach(r => {
+      // Only keep nodes that have no parent (the true roots) in the initial expanded set
+      if (r.ParentID === null && r.AlwaysVisible) {
+        next.add(r._id);
+      }
+    });
+    setExpandedNodes(next);
   }, [records]);
 
-  /** Build nodes + edges whenever expandedEras or records changes */
   const { nodes, edges } = useMemo(() => {
     const nodes: HeritageNode[] = [];
     const edges: HeritageEdge[] = [];
 
-    // Vertical layout: eras are stacked on the Y axis.
-    // cursorY tracks where the next era node should start.
-    let cursorY = 0;
+    const childrenMap = new Map<string | null, AncestorRecord[]>();
+    records.forEach(r => {
+      const pid = r.ParentID;
+      const cousins = childrenMap.get(pid) || [];
+      childrenMap.set(pid, [...cousins, r]);
+    });
 
-    for (const [era, children] of byEra.entries()) {
-      const eraId  = `era-${era.replace(/\s+/g, '-').toLowerCase()}`;
-      const isOpen = expandedEras.has(eraId);
+    const roots = childrenMap.get(null) || [];
+    let currentY = 0;
 
-      // Era node is always at X=0, Y=cursorY
-      const eraX = 0;
-      const eraY = cursorY;
+    const layoutNode = (
+      node: AncestorRecord, 
+      level: number, 
+      startY: number
+    ): number => {
+      const id = node._id;
+      const children = childrenMap.get(id) || [];
+      const hasChildren = children.length > 0;
+      
+      // A node is expanded IF it is in our set. 
+      // EXCEPT AlwaysVisible nodes which are ALWAYS expanded? 
+      // No, let's keep it strictly tied to the set for "Collapse All" to work.
+      const isExpanded = expandedNodes.has(id);
+      
+      const x = level * X_GAP;
+      let totalSubtreeHeight = 0;
 
-      // Era group node
+      if (isExpanded && hasChildren) {
+        let childY = startY;
+        children.forEach(child => {
+          const childHeight = layoutNode(child, level + 1, childY);
+          
+          edges.push({
+            id: `e-${id}-${child._id}`,
+            source: id,
+            target: child._id,
+            type: 'smoothstep',
+            animated: true,
+            style: { stroke: '#C9982A', strokeWidth: 1.5, opacity: 0.8, strokeDasharray: '4 3' },
+          });
+
+          childY += childHeight + Y_GAP;
+          totalSubtreeHeight += childHeight + Y_GAP;
+        });
+        totalSubtreeHeight -= Y_GAP;
+      } else {
+        totalSubtreeHeight = NODE_HEIGHT;
+      }
+
+      const height = Math.max(totalSubtreeHeight, NODE_HEIGHT);
+      const finalY = startY + (height / 2) - (NODE_HEIGHT / 2);
+
       nodes.push({
-        id:       eraId,
-        type:     'eraGroup',
-        position: { x: eraX, y: eraY },
+        id,
+        type: 'ancestorNode',
+        position: { x, y: finalY },
         data: {
-          label:    era,
-          type:     'era',
-          count:    children.length,
-          expanded: isOpen,
+          label: node.Name,
+          isAlwaysVisible: node.AlwaysVisible,
+          hasChildren,
+          expanded: isExpanded,
+          onToggle: toggleNode,
         },
-        style: {
-          width:  ERA_NODE_WIDTH,
-          height: ERA_NODE_HEIGHT,
-          zIndex: 10,
-        },
+        style: { width: NODE_WIDTH, height: NODE_HEIGHT, zIndex: 100 - level },
       });
 
-      // Child nodes fan out to the RIGHT (X axis) when expanded.
-      // They are centered vertically around the era node's centre.
-      if (isOpen) {
-        const totalChildrenHeight =
-          children.length * CHILD_NODE_HEIGHT + (children.length - 1) * CHILD_Y_GAP;
+      return height;
+    };
 
-        // Vertically centre the children block around the era node's mid-point
-        const eraMidY   = eraY + ERA_NODE_HEIGHT / 2;
-        const startChildY = eraMidY - totalChildrenHeight / 2;
-
-        children.forEach((rec, idx) => {
-          const childX = eraX + CHILD_X_OFFSET;
-          const childY = startChildY + idx * (CHILD_NODE_HEIGHT + CHILD_Y_GAP);
-
-          nodes.push({
-            id:       rec._id,
-            type:     'ancestorNode',
-            position: { x: childX, y: childY },
-            parentId: undefined,
-            data: {
-              label: rec.name,
-              role:  rec.role,
-              type:  rec.type,
-              bio:   rec.bio,
-            },
-            style: {
-              width:  CHILD_NODE_WIDTH,
-              height: CHILD_NODE_HEIGHT,
-            },
-          });
-
-          // Edge: era group → child
-          edges.push({
-            id:       `e-${eraId}-${rec._id}`,
-            source:   eraId,
-            target:   rec._id,
-            type:     'smoothstep',
-            animated: false,
-            style:    { stroke: '#C9982A', strokeWidth: 1.5, opacity: 0.7 },
-          });
-
-          // Edge: parent → child (within era)
-          if (rec.parentId) {
-            edges.push({
-              id:       `e-${rec.parentId}-${rec._id}`,
-              source:   rec.parentId,
-              target:   rec._id,
-              type:     'smoothstep',
-              animated: true,
-              style:    { stroke: '#C4622D', strokeWidth: 1, opacity: 0.5, strokeDasharray: '4 3' },
-            });
-          }
-        });
-
-        // Advance cursor by the taller of: the era node itself, or all children stacked
-        cursorY += Math.max(ERA_NODE_HEIGHT, totalChildrenHeight) + ERA_Y_GAP;
-      } else {
-        // Collapsed: just advance by the era node height
-        cursorY += ERA_NODE_HEIGHT + ERA_Y_GAP;
-      }
-    }
+    roots.forEach(root => {
+      const subtreeHeight = layoutNode(root, 0, currentY);
+      currentY += subtreeHeight + Y_GAP * 4; 
+    });
 
     return { nodes, edges };
-  }, [byEra, expandedEras]);
+  }, [records, expandedNodes, toggleNode]);
 
-  const expandGroup = useCallback((eraId: string) => {
-    setExpandedEras(prev => new Set([...prev, eraId]));
-  }, []);
-
-  const collapseGroup = useCallback((eraId: string) => {
-    setExpandedEras(prev => {
-      const next = new Set(prev);
-      next.delete(eraId);
-      return next;
-    });
-  }, []);
-
-  const toggleGroup = useCallback((eraId: string) => {
-    setExpandedEras(prev => {
-      const next = new Set(prev);
-      next.has(eraId) ? next.delete(eraId) : next.add(eraId);
-      return next;
-    });
-  }, []);
-
-  return { nodes, edges, expandGroup, collapseGroup, toggleGroup, expandedEras };
+  return { nodes, edges, toggleNode, collapseAll, expandedNodes };
 }

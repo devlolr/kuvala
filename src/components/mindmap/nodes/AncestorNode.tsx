@@ -1,45 +1,24 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Handle, Position, type NodeProps } from '@xyflow/react';
 import { motion } from 'framer-motion';
-import { HERITAGE_COLORS, NODE_COLORS } from '@/lib/theme';
-import type { AncestorRecord } from '@/hooks/useMindMap';
+import { useI18n } from '@/i18n';
+import { HeritageNode } from '@/hooks/useMindMap';
 
-type NodeType = AncestorRecord['type'];
+const AncestorNode = memo(function AncestorNode({ data, selected, id }: NodeProps<HeritageNode>) {
+  const { lang } = useI18n();
+  const d = data;
+  
+  // Use the name in the current language
+  const name = useMemo(() => {
+    return d.label[lang as keyof typeof d.label] || d.label.en;
+  }, [d.label, lang]);
 
-const TYPE_ICONS: Record<NodeType, string> = {
-  ancestor:   '👤',
-  event:      '📜',
-  monument:   '🏛️',
-  temple:     '🕍',
-  devasthan:  '🙏',
-  chabutro:   '🕊️',
-  panjrapole: '🐄',
-};
-
-const TYPE_LABELS: Record<NodeType, string> = {
-  ancestor:   'Ancestor',
-  event:      'Event',
-  monument:   'Monument',
-  temple:     'Temple',
-  devasthan:  'Devasthan',
-  chabutro:   'Chabutro',
-  panjrapole: 'Panjrapole',
-};
-
-interface AncestorNodeData {
-  label: string;
-  role?:  string;
-  type:   NodeType;
-  bio?:   string;
-}
-
-const AncestorNode = memo(function AncestorNode({ data, selected }: NodeProps) {
-  const d         = data as unknown as AncestorNodeData;
-  const color     = NODE_COLORS[d.type] ?? HERITAGE_COLORS.stone;
-  const icon      = TYPE_ICONS[d.type]  ?? '◆';
-  const typeLabel = TYPE_LABELS[d.type] ?? d.type;
+  const onExpandToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    d.onToggle(id);
+  };
 
   return (
     <motion.div
@@ -47,53 +26,58 @@ const AncestorNode = memo(function AncestorNode({ data, selected }: NodeProps) {
       animate={{ scale: 1, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 350, damping: 28 }}
       className={`
-        relative rounded-xl flex flex-col gap-1.5 p-3
-        bg-slate-mid border transition-all duration-200 cursor-default
+        relative rounded-xl flex flex-col gap-2 pt-4 pb-4 pr-4 min-h-[100px]
+        bg-slate-mid border-2 transition-all duration-200 cursor-default
         ${selected
-          ? 'border-gold shadow-gold scale-105'
+          ? 'border-gold shadow-gold scale-[1.02]'
           : 'border-slate/50 hover:border-gold/50 hover:shadow-md'
         }
       `}
       style={{
-        minWidth:   160,
-        maxWidth:   200,
-        borderLeftColor: color,
-        borderLeftWidth: 3,
+        width: 260, // Sligtly wider for more space
+        paddingLeft: '2.25rem', // Added significant space before the first char
+        borderLeftColor: '#C9982A',
+        borderLeftWidth: d.isAlwaysVisible ? 6 : 4,
       }}
-      role="listitem"
-      aria-label={`${d.label}, ${typeLabel}${d.role ? `, ${d.role}` : ''}`}
     >
-      {/* Type badge */}
-      <div className="flex items-center gap-1.5">
-        <span className="text-base" role="img" aria-hidden="true">{icon}</span>
-        <span
-          className="text-xs font-semibold px-1.5 py-0.5 rounded-full"
-          style={{ background: `${color}25`, color }}
-        >
-          {typeLabel}
+      {/* Icon/Symbol and Toggle */}
+      <div className="flex items-center justify-between gap-1.5 mb-1">
+        <span className="text-earth text-base font-bold opacity-70">
+          {d.isAlwaysVisible ? '👑' : '👤'}
         </span>
+        
+        {/* Expansion Indicator */}
+        {d.hasChildren && (
+          <button
+            onClick={onExpandToggle}
+            className={`
+              flex items-center justify-center w-7 h-7 rounded-full
+              border border-gold/40 text-gold text-sm font-bold
+              hover:bg-gold/10 transition-colors cursor-pointer
+              ${d.expanded ? 'bg-gold/10 shadow-inner' : ''}
+            `}
+            aria-label={d.expanded ? 'Collapse' : 'Expand'}
+          >
+            {d.expanded ? '−' : '+'}
+          </button>
+        )}
       </div>
 
       {/* Name */}
-      <p className="text-ivory text-sm font-semibold leading-snug font-display">
-        {d.label}
-      </p>
-
-      {/* Role */}
-      {d.role && (
-        <p className="text-stone text-xs leading-snug truncate">{d.role}</p>
-      )}
+      <h3 className="text-ivory text-base font-semibold leading-tight font-display break-words">
+        {name}
+      </h3>
 
       {/* Handles */}
       <Handle
         type="target"
         position={Position.Left}
-        style={{ background: color, border: 'none', width: 6, height: 6 }}
+        style={{ background: '#C9982A', border: 'none', width: 10, height: 10 }}
       />
       <Handle
         type="source"
         position={Position.Right}
-        style={{ background: color, border: 'none', width: 6, height: 6 }}
+        style={{ background: '#C9982A', border: 'none', width: 10, height: 10 }}
       />
     </motion.div>
   );

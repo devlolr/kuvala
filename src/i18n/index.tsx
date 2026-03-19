@@ -57,7 +57,11 @@ const en: Record<string, string> = {
   'map.fitView':          'Fit to View',
   'map.expand':           'Expand',
   'map.collapse':         'Collapse',
+  'map.collapseAll':      'Collapse All',
   'map.loading':          'Loading heritage map…',
+  'map.legendTitle':      'Hierarchy',
+  'map.mainLine':         'Main Line',
+  'map.branch':           'Branch',
 
   // Locations
   'location.overview':    'Overview',
@@ -121,7 +125,11 @@ const gu: Record<string, string> = {
   'map.fitView':          'સ્ક્રીનમાં ગોઠવો',
   'map.expand':           'વિસ્તૃત કરો',
   'map.collapse':         'સંકુચિત કરો',
+  'map.collapseAll':      'બધું સંકુચિત કરો',
   'map.loading':          'વારસો નકશો લોડ થઈ રહ્યો છે…',
+  'map.legendTitle':      'વંશાવલી',
+  'map.mainLine':         'મુખ્ય વંશ',
+  'map.branch':           'શાખા',
 
   // Locations
   'location.overview':    'સારાંશ',
