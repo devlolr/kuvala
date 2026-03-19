@@ -3,40 +3,49 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 
 /**
  * Sanity Client Configuration
- *
- * Uses the Sanity CDN for read operations (fast, cached globally).
- * Mutations go direct to the API (bypasses CDN).
  */
-
 export const sanityConfig = {
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset:   process.env.NEXT_PUBLIC_SANITY_DATASET ?? 'production',
-  apiVersion: '2024-01-01', // pin to a stable API date — never use 'latest'
-  useCdn:    true,          // true = globally cached reads (fast), false = live data
+  apiVersion: '2024-01-01', // pin to a stable API date
+  useCdn:    true,
 } as const;
 
-/** Public read-only client — safe to use in Server + Client components */
-export const sanityClient: SanityClient = createSanityClient(sanityConfig);
+// Internal instances to allow lazy initialization
+let clientInstance: SanityClient | null = null;
+let writeClientInstance: SanityClient | null = null;
+let imageBuilderInstance: ReturnType<typeof createImageUrlBuilder> | null = null;
 
-/** Write client — only used in Server Actions with the auth token */
-export const sanityWriteClient: SanityClient = createSanityClient({
-  ...sanityConfig,
-  useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
-});
+/** Public read-only client — initialized on first use */
+export function getSanityClient(): SanityClient {
+  if (!clientInstance) {
+    clientInstance = createSanityClient(sanityConfig);
+  }
+  return clientInstance;
+}
+
+/** Write client — used for server-side mutations */
+export function getSanityWriteClient(): SanityClient {
+  if (!writeClientInstance) {
+    writeClientInstance = createSanityClient({
+      ...sanityConfig,
+      useCdn: false,
+      token: process.env.SANITY_API_TOKEN,
+    });
+  }
+  return writeClientInstance;
+}
 
 /* ── Image URL Builder ────────────────────────────────────── */
 
-const builder = createImageUrlBuilder(sanityClient);
-
 /**
  * Build an optimised Sanity image URL.
- *
- * @example
- * urlFor(monument.image).width(800).height(600).format('webp').url()
  */
 export function urlFor(source: any) {
-  return builder.image(source);
+  if (!imageBuilderInstance) {
+    imageBuilderInstance = createImageUrlBuilder(getSanityClient());
+  }
+  return imageBuilderInstance.image(source);
 }
 
 /* ── Type-safe fetch helper ───────────────────────────────── */
@@ -50,17 +59,20 @@ export async function sanityFetch<T>(
   params: Record<string, unknown> = {},
 ): Promise<T> {
   const pid = sanityConfig.projectId;
+  
+  // Guard against missing config during build/CI
   if (!pid || pid === 'abcdef12' || pid === 'placeholder_replace_me') {
     console.warn('[Sanity] Placeholder config detected. Returning mock data.');
     return null as unknown as T;
   }
 
   try {
-    return await sanityClient.fetch<T>(query, params, {
-      next: { revalidate: 3600 }, // Set to 0 during dev. Switch back to 3600 for production. ToDo
+    return await getSanityClient().fetch<T>(query, params, {
+      next: { revalidate: 3600 },
     });
   } catch (err: any) {
     console.warn('[SanityFetch Error] Falling back to mock data.', err.message);
     return null as unknown as T;
   }
 }
+
