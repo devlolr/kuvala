@@ -1,0 +1,24 @@
+echo "============================================================"
+echo "    Running Mandatory Pre-Push Checks (TypeScript & Build)   "
+echo "============================================================"
+
+# 1. Check TypeScript Errors
+echo "\n[1/2] Checking TypeScript..."
+pnpm tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "\n❌ Push Rejected: TypeScript compilation failed."
+  exit 1
+fi
+echo "✅ TypeScript passed."
+
+# 2. Run Local Build
+echo "\n[2/2] Running Next.js Build..."
+pnpm build
+if [ $? -ne 0 ]; then
+  echo "\n❌ Push Rejected: Next.js build failed."
+  exit 1
+fi
+echo "✅ Full build passed."
+
+echo "\n🚀 All checks passed. Pushing to GitHub..."
+exit 0
