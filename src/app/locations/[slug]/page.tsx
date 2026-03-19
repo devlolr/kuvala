@@ -5,7 +5,7 @@ import { sanityFetch } from '@/lib/sanity/client';
 import { LOCATION_BY_SLUG_QUERY, ALL_LOCATION_SLUGS_QUERY } from '@/lib/sanity/queries';
 
 export const dynamic = 'force-static';
-export const dynamicParams = false;
+export const dynamicParams = true;
 /* ── Types ─────────────────────────────────────────────────── */
 interface LocationDetail {
   _id:           string;
