@@ -17,6 +17,7 @@ export interface AncestorRecord {
   };
   ParentID:      string | null;
   AlwaysVisible: boolean;
+  pad?:          'Acharya' | 'Upadhaya' | 'Sadhu';
 }
 
 export type HeritageNode = Node<{
@@ -25,6 +26,7 @@ export type HeritageNode = Node<{
   hasChildren:     boolean;
   expanded:        boolean;
   onToggle:        (id: string) => void;
+  pad?:            'Acharya' | 'Upadhaya' | 'Sadhu';
 }>;
 
 export type HeritageEdge = Edge;
@@ -144,6 +146,7 @@ export function useMindMap(records: AncestorRecord[]): UseMindMapReturn {
           hasChildren,
           expanded: isExpanded,
           onToggle: toggleNode,
+          pad: node.pad,
         },
         style: { width: NODE_WIDTH, height: NODE_HEIGHT, zIndex: 100 - level },
       });

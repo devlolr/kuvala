@@ -42,9 +42,17 @@ const AncestorNode = memo(function AncestorNode({ data, selected, id }: NodeProp
     >
       {/* Icon/Symbol and Toggle */}
       <div className="flex items-center justify-between gap-1.5 mb-1">
-        <span className="text-earth text-base font-bold opacity-70">
-          {d.isAlwaysVisible ? '👑' : '👤'}
-        </span>
+        <div className="w-8 h-8 flex items-center justify-center opacity-80">
+          <img 
+            src={
+              d.pad === 'Acharya' ? '/acharya.svg' :
+              d.pad === 'Upadhaya' ? '/upadhaya.svg' :
+              '/sadhu.svg'
+            }
+            alt={d.pad || 'Sadhu'}
+            className="w-full h-full object-contain"
+          />
+        </div>
         
         {/* Expansion Indicator */}
         {d.hasChildren && (

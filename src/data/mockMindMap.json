@@ -6,7 +6,8 @@
       "gu": "પરમ પૂજ્ય રામસૂરીશ્વરજી મ.સા."
     },
     "ParentID": null,
-    "AlwaysVisible": true
+    "AlwaysVisible": true,
+    "pad": "Acharya"
   },
   {
     "_id": "param-pujya-jagatchandra-surishwarji-msa",
@@ -15,7 +16,8 @@
       "gu": "પરમ પૂજ્ય જગચ્ચંદ્રસૂરીશ્વરજી મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Acharya"
   },
   {
     "_id": "param-pujya-kalpyash-surishwarji-msa",
@@ -24,7 +26,8 @@
       "gu": "પરમ પૂજ્ય કલ્પયશસૂરીશ્વરજી મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Acharya"
   },
   {
     "_id": "pujya-jayajnyapti-vijay-msa",
@@ -33,7 +36,8 @@
       "gu": "પૂજ્ય જયજ્ઞપ્તિ વિજય મ.સા."
     },
     "ParentID": "param-pujya-kalpyash-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-kevalajnyapti-vijay-msa",
@@ -42,7 +46,8 @@
       "gu": "પૂજ્ય કેવલજ્ઞપ્તિ વિજય મ.સા."
     },
     "ParentID": "param-pujya-kalpyash-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-dradh-nishchay-vijay-msa",
@@ -51,7 +56,8 @@
       "gu": "પૂજ્ય દૃઢનિશ્ચયવિજય મ.સા."
     },
     "ParentID": "param-pujya-kalpyash-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-hriday-mandir-vijay-msa",
@@ -60,7 +66,8 @@
       "gu": "પૂજ્ય હૃદયમંદિર વિજય મ.સા."
     },
     "ParentID": "param-pujya-kalpyash-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-poornachandra-vijay-msa",
@@ -69,7 +76,8 @@
       "gu": "પૂજ્ય પૂર્ણચંદ્રવિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-kushalchandra-vijay-msa",
@@ -78,7 +86,8 @@
       "gu": "પૂજ્ય કુશલચંદ્રવિજય મ.સા."
     },
     "ParentID": "pujya-poornachandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-sheelachandra-vijay-msa",
@@ -87,7 +96,8 @@
       "gu": "પૂજ્ય શીલચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Upadhaya"
   },
   {
     "_id": "pujya-kumudchandra-vijay-msa",
@@ -96,7 +106,8 @@
       "gu": "પૂજ્ય કુમુદચંદ્ર વિજય મ.સા."
     },
     "ParentID": "pujya-sheelachandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-krutnishchay-vijay-msa",
@@ -105,7 +116,8 @@
       "gu": "પૂ. કૃતનિશ્ચયવિજય મ.સા."
     },
     "ParentID": "pujya-sheelachandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-chandrayash-vijay-msa",
@@ -114,7 +126,8 @@
       "gu": "પૂજ્ય ચંદ્રયશ વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-bhavyayash-vijay-msa",
@@ -123,7 +136,8 @@
       "gu": "પૂ. ભવ્યયશ વિજય મ.સા."
     },
     "ParentID": "pujya-chandrayash-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-siddhyash-vijay-msa",
@@ -132,7 +146,8 @@
       "gu": "પૂ. સિદ્ધયશ વિજય મ.સા."
     },
     "ParentID": "pujya-chandrayash-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vidyayash-vijay-msa",
@@ -141,7 +156,8 @@
       "gu": "પૂ. વિધ્યયશ વિજય મ.સા."
     },
     "ParentID": "pujya-chandrayash-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-viragchandra-vijay-msa",
@@ -150,7 +166,8 @@
       "gu": "પૂજ્ય વિરાગચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-prakashchandra-vijay-msa",
@@ -159,7 +176,8 @@
       "gu": "પૂજ્ય પ્રકાશચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-drashtivaad-vijay-msa",
@@ -168,7 +186,8 @@
       "gu": "પૂ. દ્રષ્ટિવાદ વિજય મ.સા."
     },
     "ParentID": "pujya-prakashchandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-rajyash-vijay-msa",
@@ -177,7 +196,8 @@
       "gu": "પૂજ્ય રાજ્યશ વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-atmadarshan-vijay-msa",
@@ -186,7 +206,8 @@
       "gu": "પૂજ્ય આત્મદર્શન વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-divyachandra-vijay-msa",
@@ -195,7 +216,8 @@
       "gu": "પૂજ્ય દિવ્યચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-hemchandra-vijay-msa",
@@ -204,7 +226,8 @@
       "gu": "પૂજ્ય હેમચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-shomyachandra-vijay-msa",
@@ -213,7 +236,8 @@
       "gu": "પૂજ્ય શોમ્યચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-hitishchandra-vijay-msa",
@@ -222,7 +246,8 @@
       "gu": "પૂજ્ય હિતૌશચંદ્રવિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-nirgranthachandra-vijay-msa",
@@ -231,7 +256,8 @@
       "gu": "પૂજ્ય નિર્ગ્રંથચંદ્રવિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-labdhichandra-vijay-msa",
@@ -240,7 +266,8 @@
       "gu": "પૂ. લબ્ધિચંદ્ર વિજય મ.સા."
     },
     "ParentID": "pujya-nirgranthachandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vijayghosh-vijay-msa",
@@ -249,7 +276,8 @@
       "gu": "પૂજ્ય વિજયઘોષ વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-jayaghosh-vijay-msa",
@@ -258,7 +286,8 @@
       "gu": "પૂજ્ય જયઘોષ વિજય મ.સા."
     },
     "ParentID": "param-pujya-jagatchandra-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vishwachandra-vijay-msa",
@@ -267,7 +296,8 @@
       "gu": "પૂજ્ય વિશ્વચંદ્રવિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-prasannachandra-vijay-msa",
@@ -276,7 +306,8 @@
       "gu": "પૂજ્ય પ્રસન્નચંદ્રવિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Upadhaya"
   },
   {
     "_id": "pujya-nandisutra-vijay-msa",
@@ -285,7 +316,8 @@
       "gu": "પૂ. નંદીસૂત્ર વિજય મ.સા."
     },
     "ParentID": "pujya-prasannachandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-suvratachandra-vijay-msa",
@@ -294,7 +326,8 @@
       "gu": "પૂજ્ય સુવ્રતચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vineetchandra-vijay-msa",
@@ -303,7 +336,8 @@
       "gu": "પૂજ્ય વિનીતચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-manakchandra-vijay-msa",
@@ -312,7 +346,8 @@
       "gu": "પૂ. મણકચંદ્ર વિજય મ.સા."
     },
     "ParentID": "pujya-vineetchandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vijaychandra-vijay-msa",
@@ -321,7 +356,8 @@
       "gu": "પૂ. વિજયચંદ્ર વિજય મ.સા."
     },
     "ParentID": "pujya-vineetchandra-vijay-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-harshachandra-vijay-msa",
@@ -330,7 +366,8 @@
       "gu": "પૂજ્ય હર્ષચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-vijaychandra-vijay-msa-1",
@@ -339,7 +376,8 @@
       "gu": "પૂજ્ય વિજયચંદ્ર વિજય મ.સા."
     },
     "ParentID": "param-pujya-ram-surishwarji-msa",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-jinchandra-vijay-msa",
@@ -348,7 +386,8 @@
       "gu": "પૂ. જિનચંદ્ર વિજય મ.સા."
     },
     "ParentID": "pujya-vijaychandra-vijay-msa-1",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   },
   {
     "_id": "pujya-hirharsh-vijay-msa",
@@ -357,6 +396,7 @@
       "gu": "પૂ. હીરહર્ષ વિજય મ.સા."
     },
     "ParentID": "pujya-vijaychandra-vijay-msa-1",
-    "AlwaysVisible": false
+    "AlwaysVisible": false,
+    "pad": "Sadhu"
   }
 ]
