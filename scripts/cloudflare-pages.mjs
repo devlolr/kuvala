@@ -45,27 +45,38 @@ if (fs.existsSync(workerFile)) {
   fs.renameSync(workerFile, targetWorkerFile);
 }
 
-// 3. Resolve symlinks (Cloudflare Pages fails on links pointing outside the build dir)
+// 3. Resolve ALL symlinks (Cloudflare Pages fails on links)
+const realOpenNextDir = fs.realpathSync(openNextDir);
+
 function resolveSymlinks(currentDir) {
   const entries = fs.readdirSync(currentDir, { withFileTypes: true });
   for (const entry of entries) {
     const fullPath = path.join(currentDir, entry.name);
     
-    if (entry.isSymbolicLink()) {
+    // Check if it's a symbolic link using lstat (don't follow yet)
+    const lstats = fs.lstatSync(fullPath);
+    
+    if (lstats.isSymbolicLink()) {
+      console.log(`🔗 Resolving symlink: ${path.relative(realOpenNextDir, fullPath)}`);
+      
       const target = fs.readlinkSync(fullPath);
       const absTarget = path.resolve(currentDir, target);
       
-      // If the link points outside of .open-next, copy the content instead
-      if (!absTarget.startsWith(openNextDir)) {
-        console.log(`🔗 Resolving symlink: ${path.relative(openNextDir, fullPath)}`);
-        const stats = fs.statSync(fullPath);
+      if (!fs.existsSync(absTarget)) {
+        console.warn(`⚠️ Found broken symlink: ${fullPath} -> ${absTarget}. Removing.`);
         fs.unlinkSync(fullPath);
-        
-        if (stats.isDirectory()) {
-          fs.cpSync(absTarget, fullPath, { recursive: true, dereference: true });
-        } else {
-          fs.copyFileSync(absTarget, fullPath);
-        }
+        continue;
+      }
+
+      const stats = fs.statSync(fullPath); // Follows link to target
+      fs.unlinkSync(fullPath);
+      
+      if (stats.isDirectory()) {
+        fs.cpSync(absTarget, fullPath, { recursive: true, dereference: true });
+        // Recurse into the newly copied directory to resolve any links within it
+        resolveSymlinks(fullPath);
+      } else {
+        fs.copyFileSync(absTarget, fullPath);
       }
     } else if (entry.isDirectory()) {
       resolveSymlinks(fullPath);
@@ -73,8 +84,14 @@ function resolveSymlinks(currentDir) {
   }
 }
 
-console.log('🔍 Identifying and resolving external symlinks...');
-resolveSymlinks(openNextDir);
+console.log('🔍 Identifying and resolving all symlinks...');
+try {
+  resolveSymlinks(realOpenNextDir);
+} catch (err) {
+  console.error('❌ Error during symlink resolution:', err.message);
+}
 
 console.log('✅ Adapted .open-next for Cloudflare Pages native Advanced Mode.');
+
+
 
