@@ -13,7 +13,8 @@ import {
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 
-import { useMindMap, type AncestorRecord } from '@/hooks/useMindMap';
+import { useMindMap } from '@/hooks/useMindMap';
+import { type AncestorRecord } from '@/lib/sanity/types';
 import AncestorNode from '@/components/mindmap/nodes/AncestorNode';
 import { useI18n } from '@/i18n';
 

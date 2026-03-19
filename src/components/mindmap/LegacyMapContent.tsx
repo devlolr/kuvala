@@ -3,7 +3,7 @@
 import { Suspense } from 'react';
 import { useI18n } from '@/i18n';
 import HeritageMap from '@/components/mindmap/HeritageMap';
-import type { AncestorRecord } from '@/hooks/useMindMap';
+import { type AncestorRecord } from '@/lib/sanity/types';
 
 export default function LegacyMapContent({ records }: { records: AncestorRecord[] }) {
   const { t } = useI18n();

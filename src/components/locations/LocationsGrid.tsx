@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ANIMATION_PRESETS, LOCATION_CATEGORIES, type LocationCategory } from '@/lib/theme';
 import { useI18n } from '@/i18n';
 
-import { type HeritageLocation } from '@/data/mockLocations';
+import { type HeritageLocation } from '@/lib/sanity/types';
 
 const CATEGORY_ICONS: Record<string, string> = {
   temple:     '🕍',

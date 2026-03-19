@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import LegacyMapContent from '@/components/mindmap/LegacyMapContent';
 import { sanityFetch } from '@/lib/sanity/client';
 import { ALL_ANCESTORS_QUERY } from '@/lib/sanity/queries';
-import type { AncestorRecord } from '@/hooks/useMindMap';
+import { type AncestorRecord } from '@/lib/sanity/types';
 
 export const metadata: Metadata = {
   title: 'Legacy Heritage Map',

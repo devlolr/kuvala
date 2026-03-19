@@ -3,7 +3,7 @@ import { sanityFetch } from '@/lib/sanity/client';
 import { ALL_LOCATIONS_QUERY } from '@/lib/sanity/queries';
 import LocationsGrid from '@/components/locations/LocationsGrid';
 import EmptyState from '@/components/ui/EmptyState';
-import { type HeritageLocation } from '@/data/mockLocations';
+import { type HeritageLocation } from '@/lib/sanity/types';
 
 export const metadata: Metadata = {
   title: 'Heritage Locations',

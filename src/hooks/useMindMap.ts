@@ -9,16 +9,7 @@ import type { Node, Edge } from '@xyflow/react';
 
 /* ── Types ─────────────────────────────────────────────────── */
 
-export interface AncestorRecord {
-  _id:           string;
-  Name:          {
-    en: string;
-    gu: string;
-  };
-  ParentID:      string | null;
-  AlwaysVisible: boolean;
-  pad?:          'Acharya' | 'Upadhaya' | 'Sadhu';
-}
+import { type AncestorRecord } from '@/lib/sanity/types';
 
 export type HeritageNode = Node<{
   label:           { en: string; gu: string };
