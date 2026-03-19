@@ -87,12 +87,10 @@ export const UPCOMING_EVENTS_QUERY = groq`
 export const ALL_ANCESTORS_QUERY = groq`
   *[_type == "ancestor"] {
     _id,
-    name,
-    era,
-    role,
-    "parentId": parent->_id,
-    "type": nodeType,
-    bio
+    "Name": name,
+    "ParentID": parent->_id,
+    "AlwaysVisible": alwaysVisible,
+    pad
   }
 `;
 
