@@ -91,7 +91,30 @@ try {
   console.error('❌ Error during symlink resolution:', err.message);
 }
 
+// 4. Generate _routes.json to ensure Cloudflare serves static assets directly
+const routesFile = path.join(openNextDir, '_routes.json');
+const routes = {
+  version: 1,
+  include: ["/*"],
+  exclude: [
+    "/_next/static/*",
+    "/_next/data/*",
+    "/favicon.ico",
+    "/*.svg",
+    "/*.png",
+    "/*.jpg",
+    "/*.jpeg",
+    "/*.gif",
+    "/*.webp"
+  ]
+};
+
+console.log('📝 Generating _routes.json...');
+fs.writeFileSync(routesFile, JSON.stringify(routes, null, 2));
+
 console.log('✅ Adapted .open-next for Cloudflare Pages native Advanced Mode.');
+
+
 
 
 
