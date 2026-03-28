@@ -59,8 +59,11 @@ export default function HeroSection() {
       >
         <span className="h-px w-6 bg-gold/30 shrink-0" />
         <span className={`
-          text-gold/70 text-[0.5rem] md:text-xs font-semibold text-center
-          ${lang === 'gu' ? 'font-gujarati' : 'uppercase tracking-[0.1em]'}
+          text-gold/85 font-semibold text-center
+          ${lang === 'gu'
+            ? 'font-gujarati text-[1.1rem] md:text-lg leading-none'
+            : 'uppercase tracking-[0.1em] text-[0.65rem] md:text-xs'
+          }
         `}>
           {t('hero.invocation')}
         </span>
