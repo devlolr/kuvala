@@ -50,6 +50,20 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
+      {/* Mangal Charan — Auspicious Top Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 1 }}
+        className="absolute top-8 left-0 right-0 z-20 flex items-center justify-center gap-4 pointer-events-none"
+      >
+        <span className="h-px w-6 bg-gold/30" />
+        <span className="font-gujarati text-gold/70 text-xs md:text-sm font-semibold">
+          ।। પરમાત્માશ્રી પાર્શ્વ-સંભવ-આદિ-શાંતિ-વર્ધમાન-મુનિસુવ્રતસ્વામિને નમો નમઃ ।।
+        </span>
+        <span className="h-px w-6 bg-gold/30" />
+      </motion.div>
+
       {/* Hero Content */}
       <motion.div
         style={{ y, opacity }}
@@ -63,8 +77,8 @@ export default function HeroSection() {
           className="flex items-center justify-center gap-3 mb-8"
         >
           <span className="h-px w-12 bg-gold/80" />
-          <span className="text-gold font-semibold tracking-[0.3em] uppercase" style={{ fontSize: '0.8rem' }}>
-            Est. 17th Century
+          <span className="font-gujarati text-gold font-semibold uppercase tracking-[0.01em]" style={{ fontSize: '1.0rem' }}>
+            ।। પ.પૂ.સત્ય-કપૂર-ક્ષમા-જિન-ઉત્તમ-પદ્મ-રૂપ-અમી-સૌભાગ્ય-રત્ન-મોહન-ધર્મ-સુરેન્દ્ર-રવિ-રામસૂરીશ્વરજી સદ્ગુરુભ્યો નમઃ ।।
           </span>
           <span className="h-px w-12 bg-gold/80" />
         </motion.div>
