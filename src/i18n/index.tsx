@@ -40,6 +40,8 @@ const en: Record<string, string> = {
   'hero.subtitle':        'A village of living heritage, ancient temples, and timeless legacy.',
   'hero.cta.map':         'Explore the Legacy',
   'hero.cta.events':      'View Events',
+  'hero.invocation': '।। Parmatma Shree Parshva, Sambhav, Shanti, Vardhaman, and Munisuvrat Swami Namah ।।',
+  'hero.lineage': '।। P. Pu. Satya-Kapoor-Kshama-Jin-Uttam-Padma-Rup-Ami-Saubhagya-Ratna-Mohan-Dharma-Surendra-Ravi-Ram Surishwarji Namah ।।',
 
   // Stats
   'stats.monuments':      'Monuments',
@@ -108,6 +110,8 @@ const gu: Record<string, string> = {
   'hero.subtitle':        'જીવંત વારસો, પ્રાચીન મંદિરો અને અમર પ્રણ ધરાવતું ગામ.',
   'hero.cta.map':         'વારસો અન્વેષો',
   'hero.cta.events':      'ઉત્સવો જુઓ',
+  'hero.invocation': '।। પરમાત્માશ્રી પાર્શ્વ-સંભવ-આદિ-શાંતિ-વર્ધમાન-મુનિસુવ્રતસ્વામિને નમો નમઃ ।।',
+  'hero.lineage': '।। પ.પૂ.સત્ય-કપૂર-ક્ષમા-જિન-ઉત્તમ-પદ્મ-રૂપ-અમી-સૌભાગ્ય-રત્ન-મોહન-ધર્મ-સુરેન્દ્ર-રવિ-રામસૂરીશ્વરજી સદ્ગુરુભ્યો નમઃ ।।',
 
   // Stats
   'stats.monuments':      'સ્મારકો',
