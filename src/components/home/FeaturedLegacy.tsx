@@ -60,6 +60,7 @@ function MonumentImageFallback({ title, period }: { title: string; period: strin
 /* ── Featured (Hero) Card ───────────────────────────────────── */
 function FeaturedCard({ monument }: { monument: Monument }) {
   const excerpt = monument.description?.[0]?.children?.[0]?.text ?? '';
+  const { t } = useI18n();
 
   return (
     <Link
@@ -96,7 +97,7 @@ function FeaturedCard({ monument }: { monument: Monument }) {
 
       {/* Content overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-6">
-        <p className="text-gold/80 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Featured Heritage</p>
+        <p className="text-gold/80 text-xs font-semibold tracking-[0.2em] uppercase mb-2">{t('section.featured.eyebrow')}</p>
         <h3 className="font-display text-ivory font-bold leading-tight mb-3 text-2xl-fluid">
           {monument.title}
         </h3>
@@ -106,7 +107,7 @@ function FeaturedCard({ monument }: { monument: Monument }) {
           </p>
         )}
         <div className="inline-flex items-center gap-2 text-gold text-xs font-semibold border border-gold/30 rounded-full px-5 py-1.5 group-hover:bg-gold/10 transition-colors duration-300">
-          Explore
+          {t('common.explore')}
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
             <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -119,6 +120,7 @@ function FeaturedCard({ monument }: { monument: Monument }) {
 /* ── Regular Card ───────────────────────────────────────────── */
 function MonumentCard({ monument }: { monument: Monument }) {
   const excerpt = monument.description?.[0]?.children?.[0]?.text ?? '';
+  const { t } = useI18n();
 
   return (
     <Link
@@ -164,7 +166,7 @@ function MonumentCard({ monument }: { monument: Monument }) {
           </p>
         )}
         <div className="flex items-center gap-2 text-gold text-xs font-medium opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-300">
-          Explore
+          {t('common.explore')}
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
             <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -205,7 +207,7 @@ export default function FeaturedLegacy({
           className="text-center mb-14"
         >
           <p className="text-gold text-xs font-semibold tracking-[0.3em] uppercase mb-3">
-            Heritage Highlights
+            {t('section.featured.eyebrow')}
           </p>
           <h2
             id="featured-heading"
@@ -214,7 +216,7 @@ export default function FeaturedLegacy({
             {t('section.featured')}
           </h2>
           <p className="text-stone text-lg max-w-xl mx-auto leading-relaxed">
-            Centuries of devotion, culture, and community — preserved in stone, memory, and living tradition.
+            {t('section.featured.subtitle')}
           </p>
         </motion.div>
 
@@ -274,7 +276,7 @@ export default function FeaturedLegacy({
               group
             "
           >
-            View All Heritage Locations
+            {t('common.viewAll')}
             <svg
               className="transition-transform duration-300 group-hover:translate-x-1"
               width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"

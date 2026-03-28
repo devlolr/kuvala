@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { useI18n } from '@/i18n';
 
-const footerLinks = [
-  { label: 'Home',       href: '/'          },
-  { label: 'Locations',  href: '/locations'  },
-  { label: 'Legacy Map', href: '/legacy'     },
-  { label: 'Events',     href: '/events'     },
+const getFooterLinks = (t: (k: string) => string) => [
+  { label: t('nav.home'),       href: '/'          },
+  { label: t('nav.locations'),  href: '/locations'  },
+  { label: t('nav.legacy'),     href: '/legacy'     },
+  { label: t('nav.events'),     href: '/events'     },
 ];
 
 export default function Footer() {
@@ -32,19 +32,15 @@ export default function Footer() {
             <p className="text-stone text-sm leading-relaxed max-w-xs">
               {t('footer.tagline')}
             </p>
-            {/* Gujarati tagline */}
-            <p className="font-gujarati text-stone/60 text-xs leading-relaxed max-w-xs">
-              {t('footer.tagline')}
-            </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="font-display text-ivory text-sm font-semibold tracking-widest uppercase mb-5">
-              Explore
+              {t('footer.explore')}
             </h3>
             <ul className="flex flex-col gap-3">
-              {footerLinks.map(({ label, href }) => (
+              {getFooterLinks(t).map(({ label, href }) => (
                 <li key={href}>
                   <Link
                     href={href}
@@ -61,14 +57,14 @@ export default function Footer() {
           {/* Heritage institution quick mention */}
           <div>
             <h3 className="font-display text-ivory text-sm font-semibold tracking-widest uppercase mb-5">
-              Locations
+              {t('footer.locations')}
             </h3>
             <ul className="flex flex-col gap-3">
               {[
-                { label: 'Temples', href: '/locations?category=temple' },
-                { label: 'Devasthan', href: '/locations?category=devasthan' },
-                { label: 'Chabutro', href: '/locations/chabutro' },
-                { label: 'Panjrapole', href: '/locations/panjrapole' },
+                { label: t('category.temples'), href: '/locations?category=temple' },
+                { label: t('category.devasthan'), href: '/locations?category=devasthan' },
+                { label: t('category.chabutro'), href: '/locations/chabutro' },
+                { label: t('category.panjrapole'), href: '/locations/panjrapole' },
               ].map(({ label, href }) => (
                 <li key={href}>
                   <Link
@@ -86,10 +82,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 text-stone text-xs">
-          <p>© {currentYear} Shree Kuvala Jain Sangh. {t('footer.rights')}</p>
-          <p className="font-gujarati text-stone/60">
-            © {currentYear} કુવળા જૈન સંહ
-          </p>
+          <p>© {currentYear} {t('footer.brand')}. {t('footer.rights')}</p>
         </div>
       </div>
     </footer>

@@ -116,7 +116,7 @@ export default function HeroSection() {
           transition={{ delay: 0.2 }}
           className="font-gujarati text-gold/90 text-2xl font-bold mb-8 tracking-wide text-center"
         >
-          કુવાળા ગ્રામ — જ્ઞાન, ભક્તિ અને વારસો
+          {t('hero.tagline.secondary')}
         </motion.p>
 
         {/* Subtitle */}
@@ -182,7 +182,7 @@ export default function HeroSection() {
           className="mt-16 flex flex-col items-center gap-2"
           aria-hidden="true"
         >
-          <span className="text-stone text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-stone text-xs tracking-widest uppercase">{t('common.scroll')}</span>
           <div className="w-px h-10 bg-gradient-to-b from-gold/60 to-transparent animate-pulse" />
         </motion.div>
       </motion.div>
