@@ -62,11 +62,11 @@ export default function HeroSection() {
           animate="visible"
           className="flex items-center justify-center gap-3 mb-8"
         >
-          <span className="h-px w-12 bg-gold/60" />
-          <span className="text-gold text-xs font-semibold tracking-[0.3em] uppercase">
+          <span className="h-px w-12 bg-gold/80" />
+          <span className="text-gold font-semibold tracking-[0.3em] uppercase" style={{ fontSize: '0.8rem' }}>
             Est. 17th Century
           </span>
-          <span className="h-px w-12 bg-gold/60" />
+          <span className="h-px w-12 bg-gold/80" />
         </motion.div>
 
         {/* Main headline — Cinzel display font */}
@@ -87,7 +87,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.2 }}
-          className="font-gujarati text-gold/60 text-2xl font-medium mb-8 tracking-wide"
+          className="font-gujarati text-gold/90 text-2xl font-bold mb-8 tracking-wide"
         >
           કુવાળા ગ્રામ — જ્ઞાન, ભક્તિ અને વારસો
         </motion.p>

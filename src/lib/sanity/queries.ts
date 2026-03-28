@@ -17,6 +17,7 @@ export const FEATURED_MONUMENTS_QUERY = groq`
     slug,
     "period": foundedYear,
     "image": image.asset->url,
+    "blurDataURL": image.asset->metadata.lqip,
     description[0..0]
   }
 `;

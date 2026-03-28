@@ -6,6 +6,8 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useI18n, useLanguageToggle } from '@/i18n';
 
+import { useDarkMode } from '@/hooks/useDarkMode';
+
 const navLinks = [
   { href: '/',          key: 'nav.home'      },
   { href: '/locations', key: 'nav.locations' },
@@ -20,7 +22,8 @@ export default function Navbar() {
 
   const pathname  = usePathname();
   const { t }     = useI18n();
-  const { lang, toggle } = useLanguageToggle();
+  const { lang, toggle: toggleLanguage } = useLanguageToggle();
+  const { theme, toggle: toggleTheme } = useDarkMode();
 
   // Detect scroll for glass effect and hide-on-scroll-down
   useEffect(() => {
@@ -63,8 +66,10 @@ export default function Navbar() {
       >
         <div className={`
           transition-all duration-300 w-full
-          bg-slate border-b border-gold/20
-          ${scrolled ? 'py-2 md:py-3 shadow-md' : 'py-4 md:py-5'}
+          ${scrolled 
+            ? 'py-2 md:py-3 shadow-lg bg-slate/85 backdrop-blur-xl border-b border-gold/20' 
+            : 'py-4 md:py-5 bg-slate border-b border-gold/20'
+          }
         `}>
           <div className="container-wide flex items-center justify-between">
             {/* Logo */}
@@ -113,10 +118,27 @@ export default function Navbar() {
 
           {/* Right: Language toggle + mobile menu */}
           <div className="flex items-center gap-3">
+            {/* Themes Toggle */}
+            <button
+               onClick={toggleTheme}
+               aria-label={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} mode`}
+               className="
+                 p-2.5 rounded-full border border-gold/40 text-gold
+                 hover:bg-gold hover:text-slate transition-all duration-200
+                 flex items-center justify-center
+               "
+            >
+              {theme === 'light' ? (
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 1-9-9z"/></svg>
+              ) : (
+                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+              )}
+            </button>
+
             {/* Language Toggle */}
             <button
               id="lang-toggle"
-              onClick={toggle}
+              onClick={toggleLanguage}
               aria-label={`Switch to ${lang === 'en' ? 'Gujarati' : 'English'}`}
               className="
                 px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gold/40

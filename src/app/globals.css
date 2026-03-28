@@ -7,25 +7,40 @@
 
 /* ── Heritage Color Tokens ─────────────────────────────────── */
 :root {
-  /* Core palette */
-  --color-earth:      #6B3F1F;  /* Deep warm brown — headings, borders */
-  --color-earth-light:#8B5A35;  /* Lighter earth */
-  --color-terracotta: #C4622D;  /* Burnt orange — accents, hover */
-  --color-gold:       #C9982A;  /* Antique gold — CTA, badges   */
-  --color-gold-light: #E4B84A;  /* Lighter gold — glows          */
-  --color-moss:       #4A5E3A;  /* Forest moss — tags            */
-  --color-slate:      #1C2333;  /* Dark slate — dark mode base   */
-  --color-slate-mid:  #2A3347;  /* Mid slate — cards in dark     */
-  --color-stone:      #8A8A7A;  /* Stone grey — body text        */
-  --color-parchment:  #F5EDD8;  /* Warm off-white — light bg     */
-  --color-ivory:      #FDFAF4;  /* Purest ivory — card bg        */
+  /* User-requested Light Theme: Parchment & Vermillion (Refined for Contrast) */
+  --color-paper:      #FCF9F1;  /* Background: Warm, paper-like base */
+  --color-charcoal:   #1A1A1A;  /* Primary Text: Deep charcoal */
+  --color-kumkum:     #9A2A2A;  /* Accent 1: Deepened red/crimson for strong contrast */
+  --color-old-gold:   #9E6B00;  /* Deepened Bronze/Gold for readable text on light backgrounds */
+  --color-antique:    #C08A00;  /* Deeper Antique Gold for gradients */
+  --color-white:      #FFFFFF;  /* Surface */
+
+  /* User-requested Dark Theme: Temple Night */
+  --color-obsidian:   #0F1115;  /* Deep, dark sky/stone base */
+  --color-cloud:      #E5E7EB;  /* Soft white text */
+  --color-amber:      #F59E0B;  /* Glowing gold accent */
+  --color-crimson:    #991B1B;  /* Muted crimson */
+  --color-slate-dark: #1C1F26;  /* Elevated cards */
+
+  /* Legacy aliases (mapped to swap correctly between themes!) */
+  --color-earth:      var(--color-charcoal);   
+  --color-earth-light:var(--color-old-gold); 
+  --color-terracotta: var(--color-kumkum); 
+  --color-gold:       var(--color-old-gold); /* Used for text, must be dark */
+  --color-gold-light: var(--color-antique); /* Used for gradients top */
+  --color-moss:       #4A5E3A;  
+  --color-slate:      var(--color-paper); /* slate is a background color, make it paper in Light Theme! */
+  --color-slate-mid:  var(--color-white); /* surface cards */
+  --color-stone:      #666666;  /* Adjusted for better contrast on light */
+  --color-parchment:  var(--color-charcoal); /* parchment is text, make it charcoal in Light Theme */
+  --color-ivory:      var(--color-charcoal); /* ivory is text, make it charcoal in Light Theme */
 
   /* Semantic aliases */
-  --background:       var(--color-ivory);
-  --foreground:       var(--color-slate);
-  --surface:          #FFFFFF;
-  --surface-raised:   var(--color-parchment);
-  --border:           #E2D5C0;
+  --background:       var(--color-paper);
+  --foreground:       var(--color-charcoal);
+  --surface:          var(--color-white);
+  --surface-raised:   #F3EEE3;
+  --border:           rgba(212, 175, 55, 0.2); /* Antique Gold 20% */
   --border-gold:      var(--color-gold);
   --accent:           var(--color-gold);
   --accent-hover:     var(--color-gold-light);
@@ -63,11 +78,11 @@
   --radius-xl:  2rem;
   --radius-full: 9999px;
 
-  --shadow-sm:  0 1px 3px rgba(107, 63, 31, 0.08);
-  --shadow-md:  0 4px 12px rgba(107, 63, 31, 0.12);
-  --shadow-lg:  0 8px 32px rgba(107, 63, 31, 0.16);
-  --shadow-gold: 0 4px 24px rgba(201, 152, 42, 0.25);
-  --shadow-glow: 0 0 40px rgba(201, 152, 42, 0.15);
+  --shadow-sm:  0 1px 3px rgba(26, 26, 26, 0.08); /* Adjusted to charcoal */
+  --shadow-md:  0 4px 12px rgba(26, 26, 26, 0.12);
+  --shadow-lg:  0 8px 32px rgba(26, 26, 26, 0.16);
+  --shadow-gold: 0 4px 24px rgba(212, 175, 55, 0.25);
+  --shadow-glow: 0 0 40px rgba(212, 175, 55, 0.4); /* Glow effect from requirements */
 
   /* Transitions */
   --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -78,14 +93,25 @@
 
 /* ── Dark Mode ──────────────────────────────────────────────── */
 [data-theme="dark"] {
-  --background:     var(--color-slate);
-  --foreground:     var(--color-parchment);
-  --surface:        var(--color-slate-mid);
-  --surface-raised: #324060;
-  --border:         #3A4A6A;
-  --muted:          #9AACCB;
-  --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.5);
+  --background:     var(--color-obsidian);
+  --foreground:     var(--color-cloud);
+  --surface:        var(--color-slate-dark);
+  --surface-raised: #252A36;
+  --border:         rgba(245, 158, 11, 0.15); /* amber 15% */
+  --muted:          #9CA3AF;
+  --shadow-md:      0 4px 12px rgba(0, 0, 0, 0.6);
+  --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.7);
+
+  /* Override legacy variables so existing components invert properly */
+  --color-slate:    var(--color-obsidian);
+  --color-slate-mid:var(--color-slate-dark);
+  --color-ivory:    var(--color-cloud); /* Fused titles fix: ivory text becomes cloud text */
+  --color-parchment:var(--color-cloud); /* text parchment becomes cloud text */
+  --color-earth:    var(--color-cloud);
+  --color-gold:     var(--color-amber);
+  --color-gold-light: #FDE68A; /* Bright yellow/amber for dark mode title gradients */
+  --color-terracotta: var(--color-crimson);
+  --color-stone:    var(--color-cloud);
 }
 
 /* ── Tailwind v4 Theme Integration ─────────────────────────── */
@@ -173,15 +199,15 @@ body {
 }
 
 .gradient-gold {
-  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-earth) 100%);
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
 }
 
 .gradient-heritage {
   background: linear-gradient(
     135deg,
-    var(--color-earth)      0%,
-    var(--color-terracotta) 40%,
-    var(--color-gold)       100%
+    var(--color-terracotta) 0%,
+    var(--color-gold) 40%,
+    var(--color-gold-light) 100%
   );
 }
 

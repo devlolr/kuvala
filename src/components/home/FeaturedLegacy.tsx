@@ -14,6 +14,7 @@ export interface Monument {
   slug:        { current: string };
   period:      string;
   image?:      string;
+  blurDataURL?: string;
   description?: Array<{ children: Array<{ text: string }> }>;
 }
 
@@ -75,6 +76,8 @@ function FeaturedCard({ monument }: { monument: Monument }) {
             fill
             sizes="(max-width: 768px) 100vw, 55vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
+            placeholder={monument.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={monument.blurDataURL}
           />
         ) : (
           <MonumentImageFallback title={monument.title} period={monument.period} />
@@ -132,6 +135,8 @@ function MonumentCard({ monument }: { monument: Monument }) {
             fill
             sizes="(max-width: 768px) 100vw, 25vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
+            placeholder={monument.blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={monument.blurDataURL}
           />
         ) : (
           <MonumentImageFallback title={monument.title} period={monument.period} />

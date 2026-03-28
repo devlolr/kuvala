@@ -103,8 +103,10 @@ export default function QuickStats({ initialStats }: { initialStats?: any }) {
               </span>
 
               {/* Number */}
-              <p className="font-display text-4xl-fluid font-bold text-earth leading-none">
-                {isInView ? (
+              <p className="font-display text-4xl-fluid font-bold text-earth leading-none h-[1.1em] flex items-center justify-center">
+                {initialStats === null || initialStats === undefined ? (
+                  <span className="inline-block w-16 h-8 bg-gold/10 rounded-md animate-pulse" />
+                ) : isInView ? (
                   <AnimatedNumber value={stat.value} suffix={stat.suffix} />
                 ) : (
                   <span aria-hidden>0</span>

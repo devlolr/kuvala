@@ -6,17 +6,17 @@
  */
 
 export const HERITAGE_COLORS = {
-  earth:       '#6B3F1F',
-  earthLight:  '#8B5A35',
-  terracotta:  '#C4622D',
-  gold:        '#C9982A',
-  goldLight:   '#E4B84A',
-  moss:        '#4A5E3A',
-  slate:       '#1C2333',
-  slateMid:    '#2A3347',
-  stone:       '#8A8A7A',
-  parchment:   '#F5EDD8',
-  ivory:       '#FDFAF4',
+  earth:       'var(--color-earth)',
+  earthLight:  'var(--color-earth-light)',
+  terracotta:  'var(--color-terracotta)',
+  gold:        'var(--color-gold)',
+  goldLight:   'var(--color-gold-light)',
+  moss:        'var(--color-moss)',
+  slate:       'var(--color-slate)',
+  slateMid:    'var(--color-slate-mid)',
+  stone:       'var(--color-stone)',
+  parchment:   'var(--color-parchment)',
+  ivory:       'var(--color-ivory)',
 } as const;
 
 export type HeritageColor = keyof typeof HERITAGE_COLORS;
