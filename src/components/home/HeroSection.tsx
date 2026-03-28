@@ -50,7 +50,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* Mangal Charan — Auspicious Top Header */}
+      {/* Mangala Charan — Auspicious Top Header */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ export default function HeroSection() {
       >
         <span className="h-px w-6 bg-gold/30 shrink-0" />
         <span className={`
-          text-gold/70 text-[0.65rem] md:text-xs font-semibold text-center
+          text-gold/70 text-[0.5rem] md:text-xs font-semibold text-center
           ${lang === 'gu' ? 'font-gujarati' : 'uppercase tracking-[0.1em]'}
         `}>
           {t('hero.invocation')}
@@ -70,26 +70,27 @@ export default function HeroSection() {
       {/* Hero Content */}
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 text-center px-4 max-w-5xl mx-auto"
+        className="relative z-10 flex flex-col items-center text-center px-4 max-w-5xl mx-auto w-full"
       >
         {/* Eyebrow Lineage */}
         <motion.div
           variants={ANIMATION_PRESETS.fadeInUp}
           initial="hidden"
-          animate="visible"
-          className="flex items-center justify-center gap-3 mb-10"
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="flex items-center justify-center gap-3 mb-10 px-4 w-full"
         >
-          <span className="h-px w-8 md:w-16 bg-gold/40 shrink-0" />
-          <span className={`
-            text-gold font-semibold uppercase text-center max-w-4xl
+          <span className="h-px w-4 md:w-16 bg-gold/40 shrink-0 hidden sm:block" />
+          <p className={`
+            text-gold font-semibold uppercase text-center max-w-4xl px-2
             ${lang === 'gu' 
-              ? 'font-gujarati text-[0.85rem] md:text-base tracking-[0.01em]' 
-              : 'text-[0.65rem] md:text-xs tracking-[0.2em] leading-relaxed'
+              ? 'font-gujarati text-[0.8rem] md:text-base tracking-[0.01em]' 
+              : 'text-[0.65rem] md:text-xs tracking-[0.15em] leading-relaxed break-words'
             }
           `}>
             {t('hero.lineage')}
-          </span>
-          <span className="h-px w-8 md:w-16 bg-gold/40 shrink-0" />
+          </p>
+          <span className="h-px w-4 md:w-16 bg-gold/40 shrink-0 hidden sm:block" />
         </motion.div>
 
         {/* Main headline — Cinzel display font */}
@@ -98,7 +99,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.1 }}
-          className="font-display text-hero font-bold tracking-tight mb-4 leading-none"
+          className="font-display text-hero font-bold tracking-tight mb-4 leading-none text-center"
           style={{ fontFamily: 'var(--heading-font)' }}
         >
           <span className="text-gradient-gold">{headline}</span>
@@ -110,7 +111,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.2 }}
-          className="font-gujarati text-gold/90 text-2xl font-bold mb-8 tracking-wide"
+          className="font-gujarati text-gold/90 text-2xl font-bold mb-8 tracking-wide text-center"
         >
           કુવાળા ગ્રામ — જ્ઞાન, ભક્તિ અને વારસો
         </motion.p>
@@ -121,7 +122,7 @@ export default function HeroSection() {
           initial="hidden"
           animate="visible"
           transition={{ delay: 0.3 }}
-          className="text-parchment/75 text-xl-fluid max-w-2xl mx-auto leading-relaxed mb-10"
+          className="text-parchment/75 text-xl-fluid max-w-2xl leading-relaxed mb-10 text-center mx-auto"
         >
           {subtitle}
         </motion.p>
@@ -131,38 +132,38 @@ export default function HeroSection() {
           variants={ANIMATION_PRESETS.staggerContainer}
           initial="hidden"
           animate="visible"
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4"
         >
-          <motion.div variants={ANIMATION_PRESETS.staggerItem}>
+          <motion.div variants={ANIMATION_PRESETS.staggerItem} className="w-full sm:w-auto">
             <Link
               href="/legacy"
               id="hero-cta-map"
               className="
-                inline-flex items-center gap-3
-                px-12 py-5 rounded-full
+                inline-flex items-center justify-center gap-3
+                px-8 py-5 rounded-full
                 gradient-gold text-slate font-bold text-base
                 shadow-gold hover:shadow-glow
                 transition-all duration-300 hover:scale-105 active:scale-95
-                border-shimmer
+                border-shimmer w-full sm:min-w-[16rem]
               "
             >
               {t('hero.cta.map')}
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" className="shrink-0">
                 <path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>
           </motion.div>
 
-          <motion.div variants={ANIMATION_PRESETS.staggerItem}>
+          <motion.div variants={ANIMATION_PRESETS.staggerItem} className="w-full sm:w-auto">
             <Link
               href="/events"
               id="hero-cta-events"
               className="
-                inline-flex items-center gap-3
-                px-12 py-5 rounded-full
+                inline-flex items-center justify-center gap-3
+                px-8 py-5 rounded-full
                 glass border border-gold/30 text-parchment font-bold text-base
                 hover:bg-gold/10 hover:border-gold/60
-                transition-all duration-300
+                transition-all duration-300 w-full sm:min-w-[16rem]
               "
             >
               {t('hero.cta.events')}
