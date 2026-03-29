@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { fontClasses } from '@/lib/fonts';
 import { I18nProvider } from '@/i18n';
-import Navbar from '@/components/layout/Navbar';
+import FloatingNav from '@/components/layout/FloatingNav';
 import Footer from '@/components/layout/Footer';
+import SmoothScrollWrapper from '@/components/layout/SmoothScrollWrapper';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -50,13 +51,15 @@ export default function RootLayout({
             Skip to content
           </a>
 
-          <Navbar />
+          <SmoothScrollWrapper>
+            <FloatingNav />
 
-          <main id="main" className="min-h-screen">
-            {children}
-          </main>
+            <main id="main" className="min-h-screen">
+              {children}
+            </main>
 
-          <Footer />
+            <Footer />
+          </SmoothScrollWrapper>
         </I18nProvider>
       </body>
     </html>

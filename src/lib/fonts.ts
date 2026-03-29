@@ -1,4 +1,4 @@
-import { Cinzel, Inter, Noto_Sans_Gujarati } from 'next/font/google';
+import { Cinzel, Inter, Noto_Sans_Gujarati, Hind_Vadodara } from 'next/font/google';
 
 /**
  * Cinzel — elegant serif with a classical engraved feel.
@@ -36,9 +36,18 @@ export const notoSansGujarati = Noto_Sans_Gujarati({
   preload: false, // lazy — only needed when Gujarati is active
 });
 
+export const hindVadodara = Hind_Vadodara({
+  subsets: ['gujarati'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-hind-vadodara',
+  display: 'swap',
+  preload: false,
+});
+
 /** Combined font class string for the root <html> element */
 export const fontClasses = [
   cinzel.variable,
   inter.variable,
   notoSansGujarati.variable,
+  hindVadodara.variable,
 ].join(' ');
