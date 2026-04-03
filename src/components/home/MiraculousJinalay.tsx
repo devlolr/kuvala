@@ -24,7 +24,7 @@ const bentoItems = [
 
 export default function MiraculousJinalay() {
   return (
-    <section className="relative py-24 md:py-32 bg-[#0F1115] text-[#E5E7EB] overflow-hidden min-h-screen flex items-center scroll-snap-start">
+    <section className="relative z-10 py-24 md:py-32 bg-[#0F1115] text-[#E5E7EB] overflow-hidden min-h-screen flex items-center scroll-snap-start">
       {/* Subtle Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-[#0F1115] to-[#0F1115] pointer-events-none" />
       
@@ -49,7 +49,7 @@ export default function MiraculousJinalay() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[auto]">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[auto]">
           
           {/* Primary Tile (Spans 2 columns on tablet/desktop) */}
           <motion.div
@@ -103,7 +103,7 @@ export default function MiraculousJinalay() {
 
           {/* Secondary Tile 3 (Full width across bottom of grid) */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
-            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] padding-left">
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] md:col-span-3">
             <div
               className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">✨
             </div>
