@@ -423,6 +423,20 @@ html {
 }
 
 /* 
+ * Special snapping for sections before/including the footer 
+ * to ensure they don't 'jump' on mobile when scrolling up/down.
+ */
+.scroll-snap-footer {
+  scroll-snap-align: end;
+  scroll-snap-stop: always;
+}
+
+.scroll-snap-bento {
+  scroll-snap-align: start end;
+  scroll-snap-stop: always;
+}
+
+/* 
  * .scroll-snap-section
  * Snaps to the start and occupies full height context if possible. 
  * Better for mobile cards that shouldn't be missed.

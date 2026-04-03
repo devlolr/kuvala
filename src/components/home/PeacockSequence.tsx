@@ -139,7 +139,7 @@ export default function PeacockSequence({ totalFrames = TOTAL_FRAMES }: { totalF
       />
 
       {/* Sticky Canvas Container */}
-      <div className="sticky top-0 w-full h-[100vh] overflow-hidden bg-black z-0 flex items-center justify-center p-8 md:p-12">
+      <div className="sticky top-0 w-full h-[100vh] overflow-hidden bg-black z-0 flex items-center justify-center p-0 md:p-12">
         {images.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-20 backdrop-blur-md">
              <div className="flex flex-col items-center gap-4">
@@ -153,7 +153,7 @@ export default function PeacockSequence({ totalFrames = TOTAL_FRAMES }: { totalF
           ref={canvasRef}
           width={1920}
           height={1080}
-          className="w-full h-full object-contain opacity-70 md:opacity-100"
+          className="w-full h-full object-cover opacity-70 md:opacity-100"
         />
       </div>
 
