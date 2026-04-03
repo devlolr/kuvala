@@ -65,6 +65,10 @@ const en: Record<string, string> = {
   'common.rights':        'All rights reserved.',
   'common.scroll':        'Scroll',
 
+  // Scrollytelling chapter/phase labels
+  'history.chapter':      'Chapter',
+  'history.phase':        'Scene',
+
   // Footer
   'footer.brand':         'Shree Kuvala Jain Sangh',
   'footer.explore':       'Explore',
@@ -179,6 +183,10 @@ const gu: Record<string, string> = {
   'common.navigation':    'નેવિગેશન',
   'common.rights':        'સર્વ અધિકાર સુરક્ષિત.',
   'common.scroll':        'સ્ક્રોલ કરો',
+
+  // Scrollytelling chapter/phase labels
+  'history.chapter':      'પ્રકરણ',
+  'history.phase':        'પ્રસંગ',
 
   // Footer
   'footer.brand':         'શ્રી કુવાળા જૈન સંઘ',

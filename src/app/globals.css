@@ -49,6 +49,11 @@
   --body-font:        'Inter', system-ui, sans-serif;
   --gujarati-font:    'Noto Sans Gujarati', sans-serif;
 
+  /* Light mode story section backgrounds (override component dark hardcodes) */
+  --story-bg:         #1C1207;
+  --story-card-bg:    rgba(28, 18, 7, 0.80);
+  --story-text:       #E5E7EB;
+
   /* Fluid spacing scale */
   --space-xs:  clamp(0.25rem, 0.5vw,  0.5rem);
   --space-sm:  clamp(0.5rem,  1vw,    0.75rem);
@@ -112,6 +117,11 @@
   --color-gold-light: #FDE68A; /* Bright yellow/amber for dark mode title gradients */
   --color-terracotta: var(--color-crimson);
   --color-stone:    var(--color-cloud);
+
+  /* Dark mode story section backgrounds */
+  --story-bg:         #0F1115;
+  --story-card-bg:    rgba(0, 0, 0, 0.60);
+  --story-text:       #E5E7EB;
 }
 
 /* ── Tailwind v4 Theme Integration ─────────────────────────── */
@@ -224,6 +234,7 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem;
 }
 
 .glass-dark {
@@ -231,6 +242,12 @@ body {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(201, 152, 42, 0.25);
+  padding: 0.75rem;
+}
+
+.glass-dark ::selection {
+  background-color: var(--color-gold);
+  color: var(--background);
 }
 
 .glass-parchment {
@@ -318,3 +335,115 @@ body {
 .section-pad-sm { padding-block: var(--space-2xl); }
 .container-narrow { max-width: min(90rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }
 .container-wide   { max-width: min(100rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }
+
+/* ── Gujarati Typography Overrides (G3) ─────────────────────── */
+/* Gujarati glyphs have taller ascenders — normalize line-height to prevent overflow */
+.font-gujarati {
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+h1.font-gujarati, h2.font-gujarati, h3.font-gujarati {
+  line-height: 1.35;
+}
+
+/* ── Heritage Decorative Quote Mark (C2) ────────────────────── */
+.heritage-quote-mark {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-gold);
+  opacity: 0.25;
+  position: absolute;
+  top: -1.5rem;
+  left: -0.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Light Mode: Story Section Overrides (M1) ───────────────── */
+/* The scrollytelling and heroic sections use dark backgrounds by design.
+   In light mode we switch them to parchment-toned dark backgrounds        */
+[data-theme="light"] .story-bg {
+  background-color: #2C1810 !important;
+}
+
+[data-theme="light"] .story-card {
+  background: rgba(30, 18, 8, 0.85) !important;
+  border-color: rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Sections that intentionally stay dark even in light mode */
+.always-dark {
+  background-color: #0F1115 !important;
+  color: #E5E7EB !important;
+}
+
+/* ── Option 2: Scroll Zone marker ──────────────────────────── */
+/* Applied to any section whose content is scroll-progress driven.
+   Lenis reads this class to reduce touch multiplier inside zones.  */
+.scroll-zone {
+  /* Sentinel class: no visual styles — used by SmoothScrollWrapper to detect storytelling zones */
+  contain: layout style;
+}
+
+/* ── Option 4: CSS Scroll Snap utilities ───────────────────── */
+/* 
+ * .scroll-snap-container  → wraps all snap children
+ * .scroll-snap-start      → each chapter/section that should snap into view
+ *
+ * Note: We use 'proximity' (not 'mandatory') to avoid aggressive snapping
+ * that fights with the sticky scroll-driven layouts. 'proximity' only snaps
+ * when the user is already near a snap point, giving natural feel.
+ */
+.scroll-snap-container {
+  scroll-snap-type: y proximity;
+  overflow-y: scroll;
+  height: 100dvh;
+}
+
+/* The <main> element gets a softer snap on the chapter boundaries.
+   We apply proximity snap on the root scroll container.             */
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 1024px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Each chapter/section entry point snaps the viewport to its start */
+.scroll-snap-start {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* → do not skip past this stop even on fast fling (key for mobile!) */
+}
+
+/* 
+ * .scroll-snap-section
+ * Snaps to the start and occupies full height context if possible. 
+ * Better for mobile cards that shouldn't be missed.
+ */
+.scroll-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.scroll-snap-container-mandatory {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto; /* Required for snapping to work on the container itself */
+  height: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* Story cards — snap to start so narrative chapter titles are always
+   fully in view before the reader sees the paragraph               */
+.story-snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal; /* allow normal (skip-able) stops within a chapter */
+}
+
+

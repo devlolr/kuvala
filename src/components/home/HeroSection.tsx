@@ -32,12 +32,11 @@ export default function HeroSection() {
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
           style={{ 
-            // Generic high-res village landscape placeholder from Unsplash
             backgroundImage: "url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2000&auto=format&fit=crop')" 
           }}
         >
-           {/* Dark Overlay for better text readability */}
-           <div className="absolute inset-0 bg-black/50 bg-gradient-to-t from-[#0F1115] via-black/20 to-transparent" />
+           {/* G1: Lighter, more cinematic overlay — image stays visible */}
+           <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-black/30 to-black/20" />
         </div>
       </motion.div>
 

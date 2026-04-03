@@ -42,7 +42,7 @@ export default function MiraculousJinalay() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="font-display text-4xl md:text-6xl lg:text-7xl text-white font-bold tracking-tight"
+            className="font-display text-4xl md:text-5xl lg:text-7xl text-white font-bold break-words leading-tight"
           >
             The Miraculous Jinalay
           </motion.h2>
@@ -56,18 +56,22 @@ export default function MiraculousJinalay() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="md:col-span-2 md:row-span-2 glass-dark rounded-[2.5rem] border-2 border-[#D4AF37]/30 overflow-hidden relative group p-8 md:p-14 min-h-[400px] flex flex-col justify-end"
+            className="md:col-span-2 md:row-span-2 glass-dark rounded-[2.5rem] border-2 border-[#D4AF37]/30 overflow-hidden relative group p-8 md:p-16 lg:p-20 min-h-[500px] flex flex-col justify-end"
           >
              <div 
                className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-1000 scale-105 group-hover:scale-100"
                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1549488344-c6a6552a9d80?q=80&w=2000')" }}
              />
-             <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/70 to-transparent" />
              
-             <div className="relative z-10 mt-20">
-                <span className="text-[#D4AF37] font-mono text-sm tracking-wider mb-3 block border border-[#D4AF37]/40 w-max px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md">Est. VS 1903</span>
-                <h3 className="text-3xl md:text-5xl font-display font-bold text-white mb-5 drop-shadow-2xl">{bentoItems[0].title}</h3>
-                <p className="text-white/80 text-lg md:text-xl max-w-xl leading-relaxed font-medium">{bentoItems[0].description}</p>
+            <div className="relative z-10 w-full">
+              <span className="text-[#D4AF37] font-mono text-sm tracking-wider mb-6 block border border-[#D4AF37]/40 w-max px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md">Est. VS 1903</span>
+              <h3 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-white mb-6 drop-shadow-2xl leading-tight break-words">
+                {bentoItems[0].title}
+              </h3>
+              <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed font-medium break-words">
+                {bentoItems[0].description}
+              </p>
              </div>
           </motion.div>
 
@@ -77,11 +81,11 @@ export default function MiraculousJinalay() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[200px]"
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px]"
           >
             <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">🔔</div>
-            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3">{bentoItems[1].title}</h4>
-            <p className="text-white/70 text-sm md:text-base leading-relaxed">{bentoItems[1].description}</p>
+            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[1].title}</h4>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed break-words">{bentoItems[1].description}</p>
           </motion.div>
 
           {/* Secondary Tile 2 */}
@@ -90,29 +94,22 @@ export default function MiraculousJinalay() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[200px]"
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px]"
           >
             <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">🦚</div>
-            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3">{bentoItems[2].title}</h4>
-            <p className="text-white/70 text-sm md:text-base leading-relaxed">{bentoItems[2].description}</p>
+            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[2].title}</h4>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed break-words">{bentoItems[2].description}</p>
           </motion.div>
 
           {/* Secondary Tile 3 (Full width across bottom of grid) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="md:col-span-3 mt-2 glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 overflow-hidden relative group"
-          >
-              <div className="absolute right-0 top-0 w-64 h-full bg-[radial-gradient(circle,_rgba(212,175,55,0.1)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              <div>
-                <h4 className="text-2xl md:text-3xl font-display font-semibold text-[#D4AF37] mb-3">{bentoItems[3].title}</h4>
-                <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-3xl">{bentoItems[3].description}</p>
-              </div>
-              <div className="hidden md:flex w-16 h-16 rounded-full border border-[#D4AF37]/30 items-center justify-center bg-[#D4AF37]/5 shrink-0 group-hover:scale-110 transition-transform duration-500">
-                ✨
-              </div>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] padding-left">
+            <div
+              className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">✨
+            </div>
+            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[3].title}
+            </h4>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed break-words">{bentoItems[3].description}</p>
           </motion.div>
 
         </div>

@@ -158,15 +158,18 @@ export default function FloatingNav() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-x-4 top-20 z-40 p-6 glass-dark rounded-2xl border border-gold/20 md:hidden"
+            className="fixed inset-x-4 top-20 z-40 p-6 bg-surface border border-gold/20 rounded-2xl shadow-xl backdrop-blur-xl md:hidden"
           >
+            <p className="text-gold/60 text-xs uppercase tracking-widest mb-4">
+              {t('common.navigation')}
+            </p>
             <ul className="flex flex-col gap-2">
               {navLinks.map(({ href, key }) => (
                 <li key={href}>
                   <Link
                     href={href}
                     onClick={() => setIsOpen(false)}
-                    className="block px-4 py-3 rounded-xl text-foreground font-medium hover:bg-gold/10"
+                    className="block px-4 py-3 rounded-xl text-foreground font-medium hover:bg-gold/10 hover:text-gold transition-colors duration-200"
                   >
                     {t(key)}
                   </Link>

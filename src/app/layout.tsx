@@ -52,14 +52,17 @@ export default function RootLayout({
           </a>
 
           <SmoothScrollWrapper>
-            <FloatingNav />
+            <div className="relative">
+              <FloatingNav />
 
-            <main id="main" className="min-h-screen">
-              {children}
-            </main>
+              <main id="main" className="min-h-screen">
+                {children}
+              </main>
 
-            <Footer />
+              <Footer />
+            </div>
           </SmoothScrollWrapper>
+
         </I18nProvider>
       </body>
     </html>

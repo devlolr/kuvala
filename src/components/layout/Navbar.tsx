@@ -205,7 +205,7 @@ export default function Navbar() {
                 md:hidden
               "
             >
-              <p className="text-gold/60 text-xs uppercase tracking-widest mb-6">Navigation</p>
+              <p className="text-gold/60 text-xs uppercase tracking-widest mb-6">{t('common.navigation')}</p>
               <ul className="flex flex-col gap-1">
                 {navLinks.map(({ href, key }) => {
                   const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));

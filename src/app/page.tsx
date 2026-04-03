@@ -13,7 +13,7 @@ export const revalidate = 3600;
 
 export default async function HomePage() {
   return (
-    <div className="flex flex-col w-full min-h-screen bg-[#0F1115] relative">
+    <div className="flex flex-col w-full min-h-screen bg-background relative">
       <HeroSection />
       
       {/* 
