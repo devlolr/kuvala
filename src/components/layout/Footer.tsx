@@ -15,7 +15,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer role="contentinfo" className="bg-slate border-t border-gold/20 pt-16 pb-8">
+    <footer role="contentinfo" className="bg-slate border-t border-gold/20 pt-16 pb-8 scroll-snap-start">
       <div className="container-wide">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-gold/10">
           {/* Brand column */}

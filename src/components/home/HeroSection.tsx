@@ -22,7 +22,7 @@ export default function HeroSection() {
   return (
     <section
       ref={containerRef}
-      className="relative h-[100vh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-obsidian"
+      className="relative h-[100vh] min-h-[600px] w-full overflow-hidden flex items-center justify-center bg-obsidian scroll-snap-start"
     >
       {/* Background Image with Ken Burns Effect */}
       <motion.div

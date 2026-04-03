@@ -24,7 +24,7 @@ const bentoItems = [
 
 export default function MiraculousJinalay() {
   return (
-    <section className="relative py-24 md:py-32 bg-[#0F1115] text-[#E5E7EB] overflow-hidden min-h-screen flex items-center">
+    <section className="relative py-24 md:py-32 bg-[#0F1115] text-[#E5E7EB] overflow-hidden min-h-screen flex items-center scroll-snap-start">
       {/* Subtle Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-[#0F1115] to-[#0F1115] pointer-events-none" />
       

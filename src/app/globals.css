@@ -153,6 +153,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
   font-feature-settings: 'kern' 1, 'liga' 1;
@@ -411,7 +412,7 @@ html {
 
 @media (max-width: 1024px) {
   html {
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
   }
 }
 
