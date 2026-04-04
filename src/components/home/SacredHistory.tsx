@@ -111,29 +111,30 @@ const StoryCard = ({
  *   1 (ScrollHint):       shows on first entry, "Keep scrolling ↓ to journey through each scene"
  *   2 (scroll-zone):      class applied for Lenis touch damping
  *   3 (ChapterProgress):  right-edge scene dots
- *   4 (scroll-snap):      scroll-snap-start on the section entry
+ *   4 (scroll-snap):      scroll-snap-start on snap targets
  */
 const KharaStoryScroller = ({ images }: { images: string[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useI18n();
   const { isGujarati } = useLanguageToggle();
 
-  const totalScenes  = 6;
-  const scrollHeight = (totalScenes + 1) * 100;
+  const totalScenes = 6;
+  const scrollHeight = totalScenes * 100; // Exact length 600vh
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  const xRaw = useTransform(
+  // Track translation for the bottom text track
+  const xTextRaw = useTransform(
     scrollYProgress,
-    [0.1, 0.8],
+    [0, 1],
     ['0%', `-${(totalScenes - 1) * 100}%`]
   );
 
   /* G2: spring-damped translation */
-  const x = useSpring(xRaw, { stiffness: 60, damping: 18, restDelta: 0.01 });
+  const xText = useSpring(xTextRaw, { stiffness: 60, damping: 18, restDelta: 0.01 });
 
   /* Derive the current scene index (0-based) from scroll progress */
   const [activeScene, setActiveScene] = useState(0);
@@ -143,9 +144,8 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
     target: containerRef,
     offset: ['start start', 'end end'],
   }).scrollYProgress.on('change', (v) => {
-    // Map 0.1–0.8 → scene 0–5
-    const progress = Math.max(0, Math.min(1, (v - 0.1) / 0.7));
-    setActiveScene(Math.min(totalScenes - 1, Math.floor(progress * totalScenes)));
+    const progress = Math.max(0, Math.min(1, v));
+    setActiveScene(Math.min(totalScenes - 1, Math.round(progress * (totalScenes - 1))));
   });
 
   const scenes = Array.from({ length: totalScenes }).map((_, i) => ({
@@ -153,111 +153,112 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
     index: i,
   }));
 
-  interface SceneCardProps { src: string; index: number }
+  return (
+    <div
+      ref={containerRef}
+      style={{ height: `${scrollHeight}vh` }}
+      className="relative w-full scroll-zone"
+    >
+      <ScrollHint
+        observeRef={containerRef}
+        mode="horizontal"
+        hintKey="khara-timeline"
+        position="bottom-center"
+        duration={5000}
+      />
 
-  const SceneCard = ({ src, index }: SceneCardProps) => (
-    <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center w-full lg:max-w-7xl mx-auto px-4 md:px-8 py-10 lg:py-0">
-      {/* Image */}
-      <div className="relative w-full lg:w-1/2 aspect-[4/3] rounded-[1.5rem] lg:rounded-[2.5rem] overflow-hidden border-2 border-gold/30 shadow-[0_0_40px_rgba(212,175,55,0.12)] group flex-shrink-0">
-        <Image
-          src={src}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-1000"
-          alt={t('history.2.p' + (index + 1) + '.title')}
-          sizes="(max-width: 1024px) 90vw, 45vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-        <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-gold/30" />
-        <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-gold/30" />
+      <ChapterProgress
+        total={totalScenes}
+        currentIndex={activeScene}
+        label={t('history.phase')}
+      />
+
+      {/* Sticky Checkpoint (100vh) */}
+      <div
+        className="sticky top-0 h-[100dvh] w-full overflow-hidden z-20 flex flex-col justify-center shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+        style={{ background: 'var(--story-bg)' }}
+      >
+        <div className="w-full h-full flex flex-col justify-center items-center pt-24 md:pt-20 pb-8 md:pb-0 px-4">
+          <div className="w-full max-w-6xl flex flex-col items-center gap-6 md:gap-10">
+            {/* Top Half: Overlapping Static Images */}
+            <div className="relative w-full max-h-[35vh] md:max-h-[45vh] flex items-center justify-center z-10">
+              <div className="relative w-full md:w-3/4 max-w-5xl aspect-[4/3] md:aspect-[21/9] lg:aspect-[16/7] rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden border-2 border-gold/30 shadow-[0_0_40px_rgba(212,175,55,0.12)] bg-black/50">
+                {scenes.map(({ src, index }) => {
+                   const startOffset = Math.max(0, (index - 1) / (totalScenes - 1));
+                   const endOffset = index / (totalScenes - 1);
+                   const xImgRaw = useTransform(
+                      scrollYProgress,
+                      [startOffset, endOffset],
+                      index === 0 ? ['0%', '0%'] : ['100%', '0%']
+                   );
+                   const xImg = useSpring(xImgRaw, { stiffness: 60, damping: 18, restDelta: 0.01 });
+
+                   return (
+                     <motion.div 
+                       key={index}
+                       className="absolute inset-0 w-full h-full"
+                       style={{ x: xImg, zIndex: index }}
+                     >
+                        <Image
+                          src={src}
+                          fill
+                          className="object-cover"
+                          alt={t('history.2.p' + (index + 1) + '.title')}
+                          sizes="(max-width: 1024px) 90vw, 75vw"
+                          priority={index === 0}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+                     </motion.div>
+                   );
+                })}
+                <div className="absolute top-4 right-4 w-6 h-6 md:w-8 md:h-8 border-t-2 border-r-2 border-gold/30 z-[100] pointer-events-none" />
+                <div className="absolute bottom-4 left-4 w-6 h-6 md:w-8 md:h-8 border-b-2 border-l-2 border-gold/30 z-[100] pointer-events-none" />
+              </div>
+            </div>
+
+            {/* Bottom Half: Horizontal Text Track */}
+            <div className="relative w-full overflow-hidden z-20">
+              <motion.div
+                style={{ x: xText }}
+                className="flex flex-nowrap w-full"
+              >
+                {scenes.map(({ index }) => (
+                  <div key={index} className="w-full flex-shrink-0 flex flex-col items-center text-center px-4 md:px-20">
+                     <div className="flex flex-col items-center text-center space-y-3 md:space-y-6 w-full max-w-4xl">
+                        <div className="mb-2">
+                          <span className="text-gold uppercase tracking-[0.3em] font-bold text-xs md:text-sm mb-2 block">
+                            {t('history.phase')} {index + 1}
+                          </span>
+                          <h3 className={'text-white font-bold drop-shadow-lg ' + (isGujarati ? 'font-gujarati text-3xl md:text-4xl lg:text-5xl' : 'font-display text-2xl md:text-3xl lg:text-5xl uppercase tracking-tighter')}>
+                            {t('history.2.p' + (index + 1) + '.title')}
+                          </h3>
+                        </div>
+
+                        <div
+                          className="story-card p-6 md:p-10 lg:p-12 rounded-[1.8rem] md:rounded-[2rem] border border-gold/20 shadow-2xl relative w-full"
+                          style={{ background: 'var(--story-card-bg)', backdropFilter: 'blur(24px)' }}
+                        >
+                          <span className="heritage-quote-mark hidden md:block text-3xl top-4 left-4 absolute opacity-40">&ldquo;</span>
+                          <p className={'text-cloud leading-relaxed md:leading-loose drop-shadow-md pb-1 md:pb-2 ' + (isGujarati ? 'font-gujarati text-xl md:text-xl lg:text-2xl' : 'text-lg md:text-lg lg:text-xl font-medium italic')}>
+                            {t('history.2.p' + (index + 1) + '.desc')}
+                          </p>
+                        </div>
+                     </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Text */}
-      <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 w-full lg:w-1/2">
-        <div>
-          <span className="text-gold uppercase tracking-[0.3em] font-bold text-xs md:text-sm mb-2 block">
-            {t('history.phase')} {index + 1}
-          </span>
-          <h3 className={'text-white font-bold drop-shadow-lg ' + (isGujarati ? 'font-gujarati text-3xl md:text-5xl' : 'font-display text-2xl md:text-4xl lg:text-5xl uppercase tracking-tighter')}>
-            {t('history.2.p' + (index + 1) + '.title')}
-          </h3>
-        </div>
-
-        <div
-          className="story-card p-8 md:p-16 rounded-[2rem] border border-gold/20 shadow-2xl relative w-full"
-          style={{ background: 'var(--story-card-bg)', backdropFilter: 'blur(24px)' }}
-        >
-          {/* C2: Heritage-scale decorative quote mark */}
-          <span className="heritage-quote-mark">&ldquo;</span>
-          <p className={'text-cloud leading-relaxed drop-shadow-md pt-4 ' + (isGujarati ? 'font-gujarati text-lg md:text-xl' : 'text-base md:text-xl font-medium italic')}>
-            {t('history.2.p' + (index + 1) + '.desc')}
-          </p>
-        </div>
+      {/* Snap point targets */}
+      <div className="absolute top-0 left-0 w-full pointer-events-none h-full flex flex-col z-0">
+         {scenes.map((_, i) => (
+           <div key={i} className="h-[100vh] w-full scroll-snap-start" />
+         ))}
       </div>
     </div>
-  );
-
-  return (
-    <>
-      {/* ── Mobile (<lg): vertical stack ── */}
-      <div 
-        className="lg:hidden w-full flex flex-col divide-y divide-gold/10 scroll-snap-container-mandatory scroll-snap-section"
-      >
-        {/* Option 1: Show horizontal scroll hint on mobile — vertical scroll drives horizontal content */}
-        <ScrollHint
-          observeRef={containerRef as React.RefObject<HTMLElement>}
-          mode="horizontal"
-          hintKey="khara-mobile"
-          position="bottom-center"
-          duration={5000}
-        />
-        {scenes.map(({ src, index }) => (
-          <div key={index} className="w-full scroll-snap-section min-h-[100dvh] flex items-center justify-center py-20">
-            <SceneCard src={src} index={index} />
-          </div>
-        ))}
-      </div>
-
-      {/* ── Desktop (>=lg): sticky horizontal scroll-driven cinematic ── */}
-      {/* Option 4: scroll-snap-start — browser snaps to section entry on fast fling */}
-      <div
-        ref={containerRef}
-        style={{ height: scrollHeight + 'vh' }}
-        /* Options 2 + 4: scroll-zone for Lenis damping + scroll-snap-start to anchor section */
-        className="relative w-full hidden lg:block scroll-zone scroll-snap-start"
-      >
-        {/* Option 1: Scroll hint for desktop — explains ↓ scroll drives horizontal scenes */}
-        <ScrollHint
-          observeRef={containerRef}
-          mode="horizontal"
-          hintKey="khara-desktop"
-          position="bottom-center"
-          duration={5000}
-        />
-
-        {/* Option 3: Chapter progress dots — right edge */}
-        <ChapterProgress
-          total={totalScenes}
-          currentIndex={activeScene}
-          label={t('history.phase')}
-        />
-
-        <div
-          className="sticky top-0 h-screen w-full overflow-hidden z-20 flex items-center shadow-[0_0_100px_rgba(0,0,0,0.8)]"
-          style={{ background: 'var(--story-bg)' }}
-        >
-          <motion.div
-            style={{ x }}
-            className="flex flex-nowrap h-full items-center w-full"
-          >
-            {scenes.map(({ src, index }) => (
-              <div key={index} className="w-full h-full flex-shrink-0 flex items-center justify-center px-8 lg:px-20">
-                <SceneCard src={src} index={index} />
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-    </>
   );
 };
 
@@ -287,7 +288,7 @@ export default function SacredHistory() {
       <StoryCard item={timelineData[0]} index={0} />
 
       {/* Chapter 2 title — Standalone full-screen card on mobile */}
-      <div className="w-full flex flex-col items-center justify-center min-h-[100dvh] text-center px-6 scroll-snap-start">
+      <div className="w-full flex flex-col items-center justify-center min-h-[100dvh] text-center px-6 pt-20 md:pt-0 scroll-snap-start">
         <div className="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-6 flex items-center gap-4">
           <span className="h-px w-12 bg-gold/50" />
           {t('history.chapter')} 2
