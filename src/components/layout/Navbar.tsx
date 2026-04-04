@@ -123,9 +123,9 @@ export default function Navbar() {
                onClick={toggleTheme}
                aria-label={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} mode`}
                className="
-                 p-2.5 rounded-full border border-gold/40 text-gold
+                 w-10 h-10 rounded-full border border-gold/40 text-gold
                  hover:bg-gold hover:text-slate transition-all duration-200
-                 flex items-center justify-center
+                 flex items-center justify-center shrink-0
                "
             >
               {theme === 'light' ? (
@@ -141,10 +141,10 @@ export default function Navbar() {
               onClick={toggleLanguage}
               aria-label={`Switch to ${lang === 'en' ? 'Gujarati' : 'English'}`}
               className="
-                px-5 py-2.5 rounded-full text-sm font-bold border-2 border-gold/40
+                w-10 h-10 rounded-full text-sm font-bold border-2 border-gold/40
                 text-gold hover:bg-gold hover:text-slate
                 transition-all duration-200
-                font-gujarati min-w-[3.5rem]
+                font-gujarati flex items-center justify-center shrink-0
               "
             >
               {lang === 'en' ? 'ગુ' : 'EN'}
@@ -157,7 +157,7 @@ export default function Navbar() {
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
-              className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8 p-1"
+              className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 p-2 shrink-0"
             >
               <motion.span
                 animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}

@@ -109,15 +109,15 @@ export default function FloatingNav() {
           {/* Right: Toggles + mobile menu */}
           <div className="flex items-center gap-3">
              {/* Themes Toggle */}
-             <button
-               onClick={toggleTheme}
-               aria-label={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} mode`}
-               className="
-                 p-2 rounded-full text-foreground/80
-                 hover:bg-gold/10 hover:text-gold transition-colors
-                 flex items-center justify-center
-               "
-             >
+              <button
+                onClick={toggleTheme}
+                aria-label={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} mode`}
+                className="
+                  w-10 h-10 rounded-full text-foreground/80
+                  hover:bg-gold/10 hover:text-gold transition-colors
+                  flex items-center justify-center shrink-0
+                "
+              >
                {theme === 'light' ? (
                  <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 1-9-9z"/></svg>
                ) : (
@@ -130,9 +130,10 @@ export default function FloatingNav() {
               onClick={toggleLanguage}
               aria-label={`Switch to ${lang === 'en' ? 'Gujarati' : 'English'}`}
               className="
-                px-3 py-1.5 rounded-full text-sm font-bold border border-gold/30
+                w-10 h-10 rounded-full text-sm font-bold border border-gold/30
                 text-foreground hover:bg-gold/10 hover:border-gold/50
                 transition-all duration-200 font-gujarati
+                flex items-center justify-center shrink-0
               "
             >
               {lang === 'en' ? 'ગુ' : 'EN'}
@@ -141,7 +142,8 @@ export default function FloatingNav() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setIsOpen(v => !v)}
-              className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8 p-1 ml-1"
+              className="md:hidden flex flex-col justify-center items-center gap-1.5 w-10 h-10 p-2 ml-1 shrink-0"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               <motion.span animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }} className="block h-0.5 w-full bg-foreground rounded-full" />
               <motion.span animate={isOpen ? { opacity: 0 } : { opacity: 1 }} className="block h-0.5 w-full bg-foreground rounded-full" />
