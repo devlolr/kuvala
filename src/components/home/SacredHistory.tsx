@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useI18n, useLanguageToggle } from '@/i18n';
 import Image from 'next/image';
@@ -152,6 +152,51 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
     src: images[Math.min(i, images.length - 1)],
     index: i,
   }));
+
+  /* Magnetic Auto-Snapping for Mobile (and Desktop) */
+  /* Replaces native CSS scroll-snap which behaves unreliably alongside Lenis smoothing */
+  useEffect(() => {
+    let scrollTimeout: NodeJS.Timeout;
+    
+    const handleScroll = () => {
+      clearTimeout(scrollTimeout);
+      
+      // Wait 150ms after scroll stops to trigger snap
+      scrollTimeout = setTimeout(() => {
+        if (!containerRef.current) return;
+        const rect = containerRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        
+        // Distance scrolled into this container
+        const scrolledIn = -rect.top;
+        const maxScrollDist = rect.height - viewportHeight;
+        
+        // Only engage snapping if the user is actively inside the scrolling sequence
+        if (scrolledIn > 10 && scrolledIn < maxScrollDist - 10) {
+           // We use a 50% threshold: halfway scrolled -> rounds to the next frame
+           const nearestFrame = Math.round(scrolledIn / viewportHeight);
+           
+           // Calculate exactly where the window should scroll to
+           const targetY = (window.scrollY + rect.top) + (nearestFrame * viewportHeight);
+           
+           // Snap if we are off by more than 5 pixels to avoid micro-jitter loops
+           if (Math.abs(window.scrollY - targetY) > 5) {
+             if ((window as any).lenis) {
+               (window as any).lenis.scrollTo(targetY, { duration: 1.2 });
+             } else {
+               window.scrollTo({ top: targetY, behavior: 'smooth' });
+             }
+           }
+        }
+      }, 150); 
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div

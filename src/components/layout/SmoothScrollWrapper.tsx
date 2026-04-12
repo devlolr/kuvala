@@ -40,6 +40,7 @@ export default function SmoothScrollWrapper({ children }: { children: React.Reac
     });
 
     lenisRef.current = lenis;
+    (window as any).lenis = lenis;
 
     /* ── RAF loop ── */
     let rafId: number;
