@@ -212,20 +212,11 @@ const FlowingMaterial = () => {
 };
 
 export default function FlowingBackground() {
-  const { theme } = useDarkMode();
-
-  if (theme === 'light') return null;
-
-  return (
-    <div className="fixed inset-0 z-[-1] pointer-events-none overscroll-none block">
-      <Canvas
-        camera={{ position: [0, 0, 1] }}
-        gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
-      >
-        <FlowingScene />
-      </Canvas>
-    </div>
-  );
+  // ── Disabled: The ThemeBackground PNG system (ThemeBackground.tsx) is now the
+  // sole background handler for both light and dark themes.
+  // The WebGL canvas was clashing with the dark theme PNG, causing a Context Lost
+  // crash and rendering an opaque blob that hid the background image entirely.
+  return null;
 }
 
 const FlowingScene = () => {

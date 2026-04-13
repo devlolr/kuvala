@@ -37,7 +37,7 @@ export default function HeroSection() {
   const labelOpacity = useTransform(smoothY, [0.35, 0.45], [0, 1]);
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] w-full bg-transparent z-10">
+    <section ref={containerRef} className="relative h-[300vh] w-full bg-transparent z-10" style={{ position: 'relative' }}>
       <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
         <motion.div
           style={{ paddingLeft: paddingX, paddingRight: paddingX }}
@@ -51,7 +51,7 @@ export default function HeroSection() {
               borderRadius: paneRadius,
               borderWidth: borderWidth,
               borderStyle: 'solid',
-              background: theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'var(--story-card-bg)',
+              background: 'var(--story-card-glass)',
               backdropFilter: 'blur(8px)'
             }}
           >
@@ -60,10 +60,10 @@ export default function HeroSection() {
               style={{ opacity: heroOpacity, y: heroY }}
               className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
             >
-              <h1 className={`${hindVadodara.className} text-5xl md:text-6xl lg:text-[7rem] font-bold mb-6 drop-shadow-2xl tracking-tight lg:tracking-tighter leading-[1.1] ${theme === 'light' ? 'text-charcoal' : 'text-white'}`}>
+              <h1 style={{ color: 'var(--hero-title-clr)' }} className={`${hindVadodara.className} text-5xl md:text-6xl lg:text-[7rem] font-bold mb-6 drop-shadow-2xl tracking-tight lg:tracking-tighter leading-[1.1]`}>
                 કુવાળા ગ્રામ
               </h1>
-              <p className={`text-xl md:text-2xl lg:text-3xl font-medium max-w-3xl leading-relaxed drop-shadow-lg tracking-wide ${theme === 'light' ? 'text-charcoal/90' : 'text-white/90'}`}>
+              <p style={{ color: 'var(--hero-desc-clr)' }} className={`text-xl md:text-2xl lg:text-3xl font-medium max-w-3xl leading-relaxed drop-shadow-lg tracking-wide`}>
                 A village of living heritage, where ancient temples touch the sky.
               </p>
             </motion.div>
@@ -79,8 +79,8 @@ export default function HeroSection() {
               {/* Mask Reveal for Title */}
               <div className="overflow-hidden mb-8 w-full flex justify-center">
                 <motion.h2
-                  style={{ opacity: chapOpacity, y: chapY, display: 'block' }}
-                  className={`font-bold drop-shadow-sm ${isGujarati ? 'font-gujarati text-4xl md:text-6xl' : 'font-display text-4xl md:text-5xl lg:text-7xl tracking-tight'} ${theme === 'light' ? 'text-charcoal' : 'text-white'}`}
+                  style={{ opacity: chapOpacity, y: chapY, display: 'block', color: 'var(--hero-title-clr)' }}
+                  className={`font-bold drop-shadow-sm ${isGujarati ? 'font-gujarati text-4xl md:text-6xl' : 'font-display text-4xl md:text-5xl lg:text-7xl tracking-tight'}`}
                 >
                   {t('history.1.title')}
                 </motion.h2>
@@ -89,8 +89,8 @@ export default function HeroSection() {
               {/* Mask Reveal for Description */}
               <div className="overflow-hidden w-full flex justify-center">
                 <motion.p
-                  style={{ opacity: chapOpacity, y: chapY }}
-                  className={`text-lg md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-3xl drop-shadow-sm ${isGujarati ? 'font-gujarati' : ''} ${theme === 'light' ? 'text-charcoal/90' : 'text-cloud'}`}
+                  style={{ opacity: chapOpacity, y: chapY, color: 'var(--hero-desc-clr)' }}
+                  className={`text-lg md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-3xl drop-shadow-sm ${isGujarati ? 'font-gujarati' : ''}`}
                 >
                   {t('history.1.desc')}
                 </motion.p>

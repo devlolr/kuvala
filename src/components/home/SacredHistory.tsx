@@ -86,7 +86,7 @@ const StoryCard = ({
     >
       <div
         className="max-w-4xl w-full px-8 md:px-16 py-12 md:py-20 flex flex-col items-center text-center story-card rounded-[2.5rem] border border-gold/20 shadow-2xl"
-        style={{ background: theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'var(--story-card-bg)', backdropFilter: 'blur(8px)' }}
+        style={{ background: 'var(--story-card-glass)', backdropFilter: 'blur(8px)' }}
       >
         {/* M3: Chapter label via i18n */}
         <motion.div style={{ opacity: textOpacity }} className="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-6 flex items-center gap-4">
@@ -98,12 +98,8 @@ const StoryCard = ({
         {/* Tissot Mask Reveal: Title */}
         <div className="overflow-hidden mb-8 w-full flex justify-center">
           <motion.h2
-            style={{ opacity: textOpacity, y: textY, display: 'block' }}
-            className={`
-              font-bold drop-shadow-sm
-              ${isGujarati ? 'font-gujarati text-4xl md:text-6xl' : 'font-display text-4xl md:text-5xl lg:text-7xl tracking-tight'}
-              ${theme === 'light' ? 'text-charcoal' : 'text-white'}
-            `}
+            style={{ opacity: textOpacity, y: textY, display: 'block', color: 'var(--hero-title-clr)' }}
+            className={`font-bold drop-shadow-sm ${isGujarati ? 'font-gujarati text-4xl md:text-6xl' : 'font-display text-4xl md:text-5xl lg:text-7xl tracking-tight'}`}
           >
             {t(item.keyTitle)}
           </motion.h2>
@@ -116,7 +112,7 @@ const StoryCard = ({
             className={`
               text-lg md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-3xl drop-shadow-sm
               ${isGujarati ? 'font-gujarati' : ''}
-              ${theme === 'light' ? 'text-charcoal/90' : 'text-cloud'}
+              ${theme === 'light' ? 'text-charcoal/90' : 'text-[#F0EDE1]'}
             `}
           >
             {t(item.keyDesc)}
@@ -243,7 +239,7 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
       {/* Sticky Checkpoint (100vh) */}
       <div
         className={`sticky top-0 h-[100dvh] w-full overflow-hidden z-20 flex flex-col justify-center ${theme === 'dark' ? 'shadow-[0_0_100px_rgba(0,0,0,0.8)]' : 'shadow-none'}`}
-        style={{ background: theme === 'dark' ? 'var(--story-bg)' : 'transparent' }}
+        style={{ background: 'transparent' }}
       >
         <div className="w-full h-full flex flex-col justify-center items-center pt-24 md:pt-20 pb-8 md:pb-0 px-4">
           <div className="w-full max-w-6xl flex flex-col items-center gap-6 md:gap-10">
@@ -287,10 +283,7 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
             <div className="relative w-full z-20 flex justify-center px-4 md:px-6">
               <div
                 className="w-full max-w-4xl story-card rounded-[2rem] md:rounded-[2.5rem] border border-gold/20 shadow-2xl relative overflow-hidden"
-                style={{
-                  background: theme === 'light' ? 'rgba(255, 255, 255, 0.3)' : 'var(--story-card-bg)',
-                  backdropFilter: 'blur(8px)'
-                }}
+                style={{ background: 'var(--story-card-glass)', backdropFilter: 'blur(8px)' }}
               >
                 <motion.div
                   style={{ x: xText }}
@@ -302,14 +295,14 @@ const KharaStoryScroller = ({ images }: { images: string[] }) => {
                         <span className="text-gold uppercase tracking-[0.3em] font-bold text-xs md:text-sm mb-4 block">
                           {t('history.phase')} {index + 1}
                         </span>
-                        <h3 className={`font-bold drop-shadow-sm ${theme === 'light' ? 'text-charcoal' : 'text-white'} ${isGujarati ? 'font-gujarati text-3xl md:text-4xl lg:text-5xl' : 'font-display text-2xl md:text-3xl lg:text-5xl uppercase tracking-tighter'}`}>
+                        <h3 style={{ color: 'var(--hero-title-clr)' }} className={`font-bold drop-shadow-sm ${isGujarati ? 'font-gujarati text-3xl md:text-4xl lg:text-5xl' : 'font-display text-2xl md:text-3xl lg:text-5xl uppercase tracking-tighter'}`}>
                           {t('history.2.p' + (index + 1) + '.title')}
                         </h3>
                       </div>
 
                       <div className="relative w-full pt-2 md:pt-4">
                         <span className="heritage-quote-mark hidden md:block text-3xl top-0 left-0 absolute opacity-40">&ldquo;</span>
-                        <p className={`leading-relaxed md:leading-loose drop-shadow-sm pb-1 md:pb-2 ${theme === 'light' ? 'text-charcoal/90' : 'text-cloud'} ${isGujarati ? 'font-gujarati text-xl md:text-xl lg:text-2xl' : 'text-lg md:text-lg lg:text-xl font-medium italic'}`}>
+                        <p style={{ color: 'var(--hero-desc-clr)' }} className={`leading-relaxed md:leading-loose drop-shadow-sm pb-1 md:pb-2 ${isGujarati ? 'font-gujarati text-xl md:text-xl lg:text-2xl' : 'text-lg md:text-lg lg:text-xl font-medium italic'}`}>
                           {t('history.2.p' + (index + 1) + '.desc')}
                         </p>
                       </div>
@@ -344,7 +337,7 @@ export default function SacredHistory() {
     <section
       ref={sectionRef}
       className={`relative w-full z-10 flex flex-col items-center scroll-zone ${theme === 'dark' ? 'always-dark' : ''}`}
-      style={{ background: theme === 'dark' ? 'var(--story-bg)' : 'transparent' }}
+      style={{ background: 'transparent' }}
     >
       {/* Option 1: Global story hint on section entry */}
       <ScrollHint

@@ -35,23 +35,23 @@ export default function ThemeBackground() {
 
   if (!mounted) return null;
 
-  const bgImage = theme === 'dark'
-    ? "url('/images/backgrounds/DarkTheme_JirawalaDada.png')"
-    : "url('/images/backgrounds/LightTheme_JirawalaDada.png')";
-
   // Determine if we are on the landing page (handling root and localized roots)
   const isHome = pathname === '/' || pathname === '/en' || pathname === '/gu';
-  
-  // Apply 80% visibility on landing page vs 30% on interior pages
+
+  // Numeric opacity values — Framer Motion requires real numbers, not CSS var strings.
+  // Dark theme: higher opacity so the dramatic temple image reads strongly on all pages.
+  // Light theme: softer on interior pages to avoid competing with content.
   const targetOpacity = theme === 'dark'
-    ? (isHome ? 0.25 : 0.12)
+    ? (isHome ? 0.80 : 0.30)
     : (isHome ? 0.80 : 0.30);
 
+  // Background image is driven by the CSS variable --main-bg-image, which switches
+  // automatically when data-theme changes on <html>. This avoids a JS re-render lag.
   return (
     <motion.div
       className="fixed inset-[-10%] z-[-1] pointer-events-none"
       style={{
-        backgroundImage: bgImage,
+        backgroundImage: 'var(--main-bg-image)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

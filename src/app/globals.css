@@ -15,10 +15,19 @@
   --color-antique:    #C08A00;  /* Deeper Antique Gold for gradients */
   --color-white:      #FFFFFF;  /* Surface */
 
+  /* Structural UI Elements (Light Default) */
+  --story-card-glass: rgba(255, 255, 255, 0.3);
+  --story-card-blur: 8px;
+  --hero-title-clr: var(--color-charcoal);
+  --hero-desc-clr: rgba(36, 28, 21, 0.9); /* charcoal / 90% */
+  --main-bg-image: url('/images/backgrounds/LightTheme_JirawalaDada.png');
+  --bg-opacity-home: 0.80;
+  --bg-opacity-interior: 0.30;
+
   /* User-requested Dark Theme: Temple Night */
   --color-obsidian:   #0F1115;  /* Deep, dark sky/stone base */
-  --color-cloud:      #E5E7EB;  /* Soft white text */
-  --color-amber:      #F59E0B;  /* Glowing gold accent */
+  --color-cloud:      #F0EDE1;  /* Soft starlight ivory for historic feel instead of stark white */
+  --color-amber:      #D4AF37;  /* True Metallic Gold instead of default amber */
   --color-crimson:    #991B1B;  /* Muted crimson */
   --color-slate-dark: #1C1F26;  /* Elevated cards */
 
@@ -114,14 +123,22 @@
   --color-parchment:var(--color-cloud); /* text parchment becomes cloud text */
   --color-earth:    var(--color-cloud);
   --color-gold:     var(--color-amber);
-  --color-gold-light: #FDE68A; /* Bright yellow/amber for dark mode title gradients */
+  --color-gold-light: #EACE84; /* Elegant warm starlight gold for dark mode title gradients */
   --color-terracotta: var(--color-crimson);
   --color-stone:    var(--color-cloud);
 
   /* Dark mode story section backgrounds */
   --story-bg:         #0F1115;
-  --story-card-bg:    rgba(0, 0, 0, 0.60);
-  --story-text:       #E5E7EB;
+  --story-card-bg:    rgba(15, 17, 21, 0.45); /* Legacy fallback */
+  --story-text:       var(--color-cloud);
+
+  /* Structural UI Elements (Dark Override) */
+  --story-card-glass: rgba(15, 17, 21, 0.45);
+  --hero-title-clr: #F0EDE1;
+  --hero-desc-clr: rgba(240, 237, 225, 0.9); /* starlight / 90% */
+  --main-bg-image: url('/images/backgrounds/DarkTheme_JirawalaDada.png');
+  --bg-opacity-home: 0.60;
+  --bg-opacity-interior: 0.35;
 }
 
 /* ── Tailwind v4 Theme Integration ─────────────────────────── */
@@ -138,6 +155,7 @@
   --color-slate-mid:    var(--color-slate-mid);
   --color-stone:        var(--color-stone);
   --color-parchment:    var(--color-parchment);
+  --color-cloud:        var(--color-cloud);
   --color-ivory:        var(--color-ivory);
   --font-sans:          var(--body-font);
   --font-display:       var(--heading-font);
@@ -151,16 +169,8 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-  -webkit-text-size-adjust: 100%;
-  tab-size: 4;
-  font-feature-settings: 'kern' 1, 'liga' 1;
-}
-
 body {
-  background-color: var(--background);
+  background-color: transparent; /* Transparent so fixed ThemeBackground (z-[-1]) shows through */
   color: var(--foreground);
   font-family: var(--body-font);
   font-size: var(--text-base);
@@ -168,6 +178,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Base fallback colour on html so there is never a white flash behind the image */
+html {
+  background-color: var(--background);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 /* Selection */
@@ -372,10 +392,11 @@ h1.font-gujarati, h2.font-gujarati, h3.font-gujarati {
   border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
-/* Sections that intentionally stay dark even in light mode */
+/* Sections that intentionally stay dark even in light mode.
+   Use a semi-transparent tint — NOT solid — so the ThemeBackground image shows through. */
 .always-dark {
-  background-color: #0F1115 !important;
-  color: #E5E7EB !important;
+  /* background handled via inline style (rgba) on the element */
+  color: #F0EDE1;
 }
 
 /* ── Option 2: Scroll Zone marker ──────────────────────────── */
