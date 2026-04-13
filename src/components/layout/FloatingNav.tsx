@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring, useMotionValueEvent } from 'framer-motion';
 import { useI18n, useLanguageToggle } from '@/i18n';
 import { useDarkMode } from '@/hooks/useDarkMode';
 
@@ -16,29 +16,31 @@ const navLinks = [
 
 export default function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolledPastHero, setScrolledPastHero] = useState(false);
   
   const pathname = usePathname();
   const { t } = useI18n();
   const { lang, toggle: toggleLanguage } = useLanguageToggle();
   const { theme, toggle: toggleTheme } = useDarkMode();
 
-  const { scrollYProgress } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  // Auto-hide navbar on scroll down, reveal on scroll up
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    // Hide when scrolling down past 150px
+    if (latest > previous && latest > 150 && !isOpen) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
-
-  // Detect scroll to show/hide nav
-  useEffect(() => {
-    const handleScroll = () => {
-      // Invisible at the very top (e.g. within first 100px)
-      setScrolledPastHero(window.scrollY > 100);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Close drawer on route change safely
   useEffect(() => {
@@ -57,8 +59,8 @@ export default function FloatingNav() {
         role="banner"
         initial={{ y: -100, opacity: 0 }}
         animate={{ 
-          y: scrolledPastHero ? 0 : -100, 
-          opacity: scrolledPastHero ? 1 : 0 
+          y: hidden ? -100 : 0, 
+          opacity: 1 
         }}
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="fixed top-2 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none"

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useI18n, useLanguageToggle } from '@/i18n';
 
 import { useDarkMode } from '@/hooks/useDarkMode';
@@ -18,34 +18,37 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen,    setIsOpen]    = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
-  const [hidden, setHidden] = useState(false);
 
   const pathname  = usePathname();
   const { t }     = useI18n();
   const { lang, toggle: toggleLanguage } = useLanguageToggle();
   const { theme, toggle: toggleTheme } = useDarkMode();
 
-  // Detect scroll for glass effect and hide-on-scroll-down
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  // Auto-hide navbar on scroll down, reveal on scroll up
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    // Don't hide if at the very top, or if mobile menu is open
+    if (latest > previous && latest > 150 && !isOpen) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
+  // Detect scroll for glass effect
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Glass effect toggle
-      setScrolled(currentScrollY > 24);
-
-      // Hide on scroll down, show on scroll up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setHidden(true); // Scrolling down -> hide
-      } else if (currentScrollY < lastScrollY) {
-        setHidden(false); // Scrolling up -> show
-      }
-
-      lastScrollY = currentScrollY;
+      setScrolled(window.scrollY > 24);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Set initial state based on current scroll position
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -59,29 +62,33 @@ export default function Navbar() {
       <header
         role="banner"
         className={`
-          sticky top-0 z-50
-          transition-transform duration-300 ease-in-out
+          fixed top-0 inset-x-0 z-50
+          transition-transform duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]
           ${hidden ? '-translate-y-full' : 'translate-y-0'}
         `}
       >
         <div className={`
-          transition-all duration-300 w-full
+          transition-all duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)] w-full
           ${scrolled 
-            ? 'py-2 md:py-3 shadow-lg bg-slate/85 backdrop-blur-xl border-b border-gold/20' 
-            : 'py-4 md:py-5 bg-slate border-b border-gold/20'
+            ? 'py-2 md:py-3 shadow-md bg-surface/90 backdrop-blur-xl border-b border-border' 
+            : 'py-4 md:py-6 bg-transparent border-transparent'
           }
         `}>
           <div className="container-wide flex items-center justify-between">
             {/* Logo */}
-          <Link href="/" aria-label="Kuvala Heritage Home" className="flex items-center gap-4 group">
-            <span className="w-11 h-11 rounded-full gradient-gold flex items-center justify-center text-ivory font-display font-bold text-lg shadow-gold group-hover:scale-110 transition-transform duration-300">
+          <Link href="/" aria-label="Kuvala Heritage Home" className="flex items-center gap-3 md:gap-4 group">
+            <span className={`
+              rounded-full gradient-gold flex items-center justify-center font-display font-bold shadow-gold group-hover:scale-110 transition-all duration-300
+              ${scrolled ? 'w-9 h-9 text-base' : 'w-10 h-10 md:w-11 md:h-11 text-lg'}
+              ${!scrolled ? 'text-white' : 'text-ivory'}
+            `}>
               ક
             </span>
-            <div className="flex flex-col leading-tight">
-              <span className="font-display text-ivory text-lg font-semibold tracking-wide">
+            <div className="flex flex-col leading-tight transition-all duration-300">
+              <span className={`font-display font-semibold tracking-wide transition-colors duration-300 ${!scrolled ? 'text-white drop-shadow-md' : 'text-ivory'} ${scrolled ? 'text-base' : 'text-lg'}`}>
                 Kuvala
               </span>
-              <span className="text-gold/80 text-xs tracking-widest uppercase">
+              <span className={`text-[10px] md:text-xs tracking-widest uppercase transition-colors duration-300 ${!scrolled ? 'text-white/90 drop-shadow-md' : 'text-gold/80'}`}>
                 કુવાળા
               </span>
             </div>
@@ -98,8 +105,8 @@ export default function Navbar() {
                   className={`
                     relative px-5 py-2.5 rounded-md text-sm font-medium transition-colors duration-200
                     ${isActive
-                      ? 'text-gold'
-                      : 'text-parchment/80 hover:text-gold'
+                      ? (!scrolled ? 'text-white drop-shadow-md' : 'text-gold')
+                      : (!scrolled ? 'text-white/80 hover:text-white drop-shadow-md' : 'text-parchment/80 hover:text-gold')
                     }
                   `}
                 >
@@ -107,7 +114,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="nav-indicator"
-                      className="absolute inset-x-1 -bottom-0.5 h-0.5 bg-gold rounded-full"
+                      className={`absolute inset-x-1 -bottom-0.5 h-0.5 rounded-full ${!scrolled ? 'bg-white' : 'bg-gold'}`}
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -117,16 +124,15 @@ export default function Navbar() {
           </nav>
 
           {/* Right: Language toggle + mobile menu */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 md:gap-4">
             {/* Themes Toggle */}
             <button
                onClick={toggleTheme}
                aria-label={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} mode`}
-               className="
-                 w-10 h-10 rounded-full border border-gold/40 text-gold
-                 hover:bg-gold hover:text-slate transition-all duration-200
-                 flex items-center justify-center shrink-0
-               "
+               className={`
+                 w-9 h-9 md:w-10 md:h-10 rounded-full border transition-all duration-300 flex items-center justify-center shrink-0
+                 ${!scrolled ? 'border-white/40 text-white hover:bg-white hover:text-black backdrop-blur-sm' : 'border-gold/40 text-gold hover:bg-gold hover:text-slate'}
+               `}
             >
               {theme === 'light' ? (
                 <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3a9 9 0 1 0 9 9 9 9 0 0 1-9-9z"/></svg>
@@ -140,12 +146,10 @@ export default function Navbar() {
               id="lang-toggle"
               onClick={toggleLanguage}
               aria-label={`Switch to ${lang === 'en' ? 'Gujarati' : 'English'}`}
-              className="
-                w-10 h-10 rounded-full text-sm font-bold border-2 border-gold/40
-                text-gold hover:bg-gold hover:text-slate
-                transition-all duration-200
-                font-gujarati flex items-center justify-center shrink-0
-              "
+              className={`
+                w-9 h-9 md:w-10 md:h-10 rounded-full text-sm font-bold border-2 transition-all duration-300 font-gujarati flex items-center justify-center shrink-0
+                ${!scrolled ? 'border-white/40 text-white hover:bg-white hover:text-black backdrop-blur-sm' : 'border-gold/40 text-gold hover:bg-gold hover:text-slate'}
+              `}
             >
               {lang === 'en' ? 'ગુ' : 'EN'}
             </button>
@@ -161,15 +165,15 @@ export default function Navbar() {
             >
               <motion.span
                 animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                className="block h-0.5 w-full bg-gold rounded-full"
+                className={`block h-0.5 w-full rounded-full transition-colors ${!scrolled ? 'bg-white' : 'bg-gold'}`}
               />
               <motion.span
                 animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-                className="block h-0.5 w-full bg-gold rounded-full"
+                className={`block h-0.5 w-full rounded-full transition-colors ${!scrolled ? 'bg-white' : 'bg-gold'}`}
               />
               <motion.span
                 animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                className="block h-0.5 w-full bg-gold rounded-full"
+                className={`block h-0.5 w-full rounded-full transition-colors ${!scrolled ? 'bg-white' : 'bg-gold'}`}
               />
             </button>
           </div>

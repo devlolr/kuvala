@@ -4,6 +4,7 @@ import { I18nProvider } from '@/i18n';
 import FloatingNav from '@/components/layout/FloatingNav';
 import Footer from '@/components/layout/Footer';
 import SmoothScrollWrapper from '@/components/layout/SmoothScrollWrapper';
+import ThemeBackground from '@/components/layout/ThemeBackground';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default function RootLayout({
 
           <SmoothScrollWrapper>
             <div className="relative">
+              <ThemeBackground />
               <FloatingNav />
 
               <main id="main" className="min-h-screen">

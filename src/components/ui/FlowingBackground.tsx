@@ -4,6 +4,7 @@ import { useRef, useMemo } from 'react';
 import { Canvas, useFrame, RootState, ThreeElements, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useScroll, useSpring } from 'framer-motion';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 declare global {
   namespace JSX {
@@ -211,6 +212,10 @@ const FlowingMaterial = () => {
 };
 
 export default function FlowingBackground() {
+  const { theme } = useDarkMode();
+
+  if (theme === 'light') return null;
+
   return (
     <div className="fixed inset-0 z-[-1] pointer-events-none overscroll-none block">
       <Canvas

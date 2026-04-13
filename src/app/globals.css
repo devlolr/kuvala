@@ -9,9 +9,9 @@
 :root {
   /* User-requested Light Theme: Parchment & Vermillion (Refined for Contrast) */
   --color-paper:      #FCF9F1;  /* Background: Warm, paper-like base */
-  --color-charcoal:   #1A1A1A;  /* Primary Text: Deep charcoal */
+  --color-charcoal:   #241C15;  /* Primary Text: Deep Espresso/Umber (More premium than pure black) */
   --color-kumkum:     #9A2A2A;  /* Accent 1: Deepened red/crimson for strong contrast */
-  --color-old-gold:   #9E6B00;  /* Deepened Bronze/Gold for readable text on light backgrounds */
+  --color-old-gold:   #AF8231;  /* Refined Antique Gold: Richer, more metallic bronze-gold for heritage labels */
   --color-antique:    #C08A00;  /* Deeper Antique Gold for gradients */
   --color-white:      #FFFFFF;  /* Surface */
 
@@ -363,15 +363,13 @@ h1.font-gujarati, h2.font-gujarati, h3.font-gujarati {
 }
 
 /* ── Light Mode: Story Section Overrides (M1) ───────────────── */
-/* The scrollytelling and heroic sections use dark backgrounds by design.
-   In light mode we switch them to parchment-toned dark backgrounds        */
+/* Ensure stories are legible on light backgrounds and do not block the global theme image */
 [data-theme="light"] .story-bg {
-  background-color: #2C1810 !important;
+  background-color: transparent !important;
 }
 
 [data-theme="light"] .story-card {
-  background: rgba(30, 18, 8, 0.85) !important;
-  border-color: rgba(212, 175, 55, 0.25) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
 /* Sections that intentionally stay dark even in light mode */

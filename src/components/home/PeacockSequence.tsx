@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useI18n, useLanguageToggle } from '@/i18n';
+import { useDarkMode } from '@/hooks/useDarkMode';
 import ScrollHint from '@/components/ui/ScrollHint';
 import ChapterProgress from '@/components/ui/ChapterProgress';
 
@@ -12,6 +13,7 @@ export default function PeacockSequence({ totalFrames = TOTAL_FRAMES }: { totalF
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { t } = useI18n();
   const { isGujarati } = useLanguageToggle();
+  const { theme } = useDarkMode();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -139,7 +141,7 @@ export default function PeacockSequence({ totalFrames = TOTAL_FRAMES }: { totalF
       />
 
       {/* Sticky Canvas Container */}
-      <div className="sticky top-0 w-full h-[100vh] overflow-hidden bg-black z-0 flex items-center justify-center p-0 md:p-12">
+      <div className={`sticky top-0 w-full h-[100vh] overflow-hidden ${theme === 'dark' ? 'bg-black' : 'bg-transparent'} z-0 flex items-center justify-center p-0 md:p-12`}>
         {images.length === 0 && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 z-20 backdrop-blur-md">
              <div className="flex flex-col items-center gap-4">
@@ -180,8 +182,8 @@ export default function PeacockSequence({ totalFrames = TOTAL_FRAMES }: { totalF
                 style={{ opacity: descOpacity, y: descY }}
                 className="max-w-5xl px-8 text-center"
               >
-                  <div className="bg-black/80 backdrop-blur-2xl px-12 py-16 rounded-[2.5rem] border border-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.1)]">
-                    <p className={'text-white/95 leading-relaxed drop-shadow-md ' + (isGujarati ? 'font-gujarati text-2xl md:text-4xl' : 'text-xl md:text-3xl font-medium italic')}>
+                  <div className={`${theme === 'light' ? 'bg-white/70 shadow-xl' : 'bg-black/80 shadow-[0_0_50px_rgba(212,175,55,0.1)]'} backdrop-blur-2xl px-12 py-16 rounded-[2.5rem] border border-gold/30`}>
+                    <p className={`${theme === 'light' ? 'text-charcoal' : 'text-white/95'} leading-relaxed drop-shadow-md ${isGujarati ? 'font-gujarati text-2xl md:text-4xl' : 'text-xl md:text-3xl font-medium italic'}`}>
                       "{t('history.6.desc')}"
                     </p>
                   </div>
