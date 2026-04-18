@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { fontClasses } from '@/lib/fonts';
 import { I18nProvider } from '@/i18n';
-import Navbar from '@/components/layout/Navbar';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import FloatingNav from '@/components/layout/FloatingNav';
 import Footer from '@/components/layout/Footer';
+import SmoothScrollWrapper from '@/components/layout/SmoothScrollWrapper';
+import ThemeBackground from '@/components/layout/ThemeBackground';
 import '@/app/globals.css';
 
 export const metadata: Metadata = {
@@ -41,23 +44,31 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontClasses} antialiased`} suppressHydrationWarning>
-        <I18nProvider>
-          {/* Skip-to-content for accessibility */}
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-md focus:bg-gold focus:text-slate focus:font-semibold"
-          >
-            Skip to content
-          </a>
+        <ThemeProvider>
+          <I18nProvider>
+            {/* Skip-to-content for accessibility */}
+            <a
+              href="#main"
+              className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-md focus:bg-gold focus:text-slate focus:font-semibold"
+            >
+              Skip to content
+            </a>
 
-          <Navbar />
+            <SmoothScrollWrapper>
+              <div className="relative">
+                <ThemeBackground />
+                <FloatingNav />
 
-          <main id="main" className="min-h-screen">
-            {children}
-          </main>
+                <main id="main" className="min-h-screen">
+                  {children}
+                </main>
 
-          <Footer />
-        </I18nProvider>
+                <Footer />
+              </div>
+            </SmoothScrollWrapper>
+
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

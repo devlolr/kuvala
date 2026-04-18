@@ -65,6 +65,10 @@ const en: Record<string, string> = {
   'common.rights':        'All rights reserved.',
   'common.scroll':        'Scroll',
 
+  // Scrollytelling chapter/phase labels
+  'history.chapter':      'Chapter',
+  'history.phase':        'Event',
+
   // Footer
   'footer.brand':         'Shree Kuvala Jain Sangh',
   'footer.explore':       'Explore',
@@ -105,6 +109,32 @@ const en: Record<string, string> = {
   'event.date':           'Date',
   'event.location':       'Location',
   'event.registered':     'You\'re registered! ✓',
+
+  // History
+  'history.1.title': 'A Village Like Gokul',
+  'history.1.desc': 'Kuvala — a beautiful village where peacocks sing morning and evening, and the soil is fragrant with the pure character of great souls.',
+  'history.2.title': 'The Divine Discovery',
+  'history.2.desc': 'Excavations in Khara village revealed ancient idols of Shree Sambhavnath, Ajitnath, and Padmaprabh. Guided by divinity, the cart bringing them naturally turned towards Kuvala.',
+  'history.2.p1.title': 'The Discovery',
+  'history.2.p1.desc': 'Deep in the dry earth of a Khara village farm, a divine secret waited. During a routine excavation, the soil gave way to reveal a sacred Trigadu — three magnificent, pristine idols of Shri Sambhavnath Dada, Shri Ajitnath Dada, and Shri Padmaprabha Swami, miraculously appearing from the dust.',
+  'history.2.p2.title': 'The Dilemma',
+  'history.2.p2.desc': 'Word of the divine appearance spread rapidly. Since Khara had no Jain population, the devoted Sanghs of both Kuwala and Bhabhar hurried to the fields. A profound question stood before the elders: which village would be blessed with the honour of taking the Paramatma home?',
+  'history.2.p3.title': 'The Pact of Surrender',
+  'history.2.p3.desc': 'Human debate gave way to absolute faith. The leaders agreed to let the divine choose. They brought a sturdy cart from the Bhabhar Mahajan and yoked it to the powerful oxen of the Kuwala Mahajan. The Lords were respectfully seated, and the reins were left untouched.',
+  'history.2.p4.title': 'The Divine Choice',
+  'history.2.p4.desc': 'As the heavy wooden wheels groaned and the oxen stepped forward, the gathered crowd held its breath. At the fork in the road, without a single command, the cart made its choice — turning decisively onto the dusty path leading toward Kuwala.',
+  'history.2.p5.title': 'The Welcoming',
+  'history.2.p5.desc': 'Joy echoed through the stone gates of Kuwala. The Lords had chosen their sanctuary. The villagers welcomed the divine procession with open hearts, flowers, and deep reverence, forever cementing their village\'s place in history.',
+  'history.2.p6.title': 'The Living Miracle',
+  'history.2.p6.desc': 'Today, the sacred Trigadu rests peacefully in Kuwala. Devotees who come with unwavering focus speak of a beautiful, enduring miracle: depending on the hour, the Paramatma subtly reflects the cycle of life — appearing as a child in the soft morning light, a youth in the afternoon sun, and a serene elder as evening falls.',
+  'history.3.title': 'Eradicating Kanya Vikray',
+  'history.3.desc': 'A powerful social reform initiated by Guru Maharaj saved 17 villages from the grave sin of "Kanya Vikray" and stopped wasteful wedding expenses.',
+  'history.4.title': 'The Storm Miracle',
+  'history.4.desc': 'During the temple renovation, a fierce storm struck. The Guru foresaw the danger and ordered everyone out of the trench just in time, saving all lives.',
+  'history.5.title': 'The Chariot Entry',
+  'history.5.desc': 'When the engine of the carriage mysteriously stopped at the village entrance, the Guru was seated in the silver chariot instead, fulfilling the divine will.',
+  'history.6.title': "The Peacock's Evening Aarti",
+  'history.6.desc': "In a mesmerizing nightly miracle, a peaceful peacock—a symbol of good omens (Shakun)—graces the Shikhar exactly during the evening prayer and stays there throughout the night in deep, silent devotion to the Paramatma.",
 
   // Registration form
   'form.name':            'Your Name',
@@ -154,6 +184,10 @@ const gu: Record<string, string> = {
   'common.rights':        'સર્વ અધિકાર સુરક્ષિત.',
   'common.scroll':        'સ્ક્રોલ કરો',
 
+  // Scrollytelling chapter/phase labels
+  'history.chapter':      'પ્રકરણ',
+  'history.phase':        'પ્રસંગ',
+
   // Footer
   'footer.brand':         'શ્રી કુવાળા જૈન સંઘ',
   'footer.explore':       'અન્વેષો',
@@ -194,6 +228,32 @@ const gu: Record<string, string> = {
   'event.date':           'તારીખ',
   'event.location':       'સ્થળ',
   'event.registered':     'તમારી નોંધણી થઈ ✓',
+
+  // History
+  'history.1.title': 'ગોકુળ જેવું સુંદર નગર',
+  'history.1.desc': 'ગોકુળ જેવું સુંદર નગર એટલે કુવાળા... જ્યાં સવાર સાંજ શુભપક્ષી એટલે કે મોર ટહુકરતા રહે છે અને જે ધરતીની માટી મહાપુરુષોના શુદ્ધ ચારિત્રની સુવાસથી મહેકતી રહે છે.',
+  'history.2.title': 'અલૌકિક પ્રાગટ્ય',
+  'history.2.desc': 'ખારા ગામનાં ખેતર વિસ્તારમાં ખોદકામ દરમ્યાન શ્રી સંભવનાથદાદા-શ્રી અજિતનાથદાદા તથા શ્રી પદ્મપ્રભસ્વામીનું ત્રિગડુ પ્રગટ થયેલ... ગાડું કુવાળા તરફ વળ્યું.',
+  'history.2.p1.title': 'અલૌકિક પ્રાગટ્ય',
+  'history.2.p1.desc': 'ખારા ગામનાં ખેતર વિસ્તારમાં ખોદકામ દરમ્યાન અલૌકિક તેજપુંજ સમાન ત્રિગડુ પ્રગટ થયું. ધૂળથી ઢંકાયેલી શ્રી સંભવનાથદાદા, શ્રી અજિતનાથદાદા અને શ્રી પદ્મપ્રભસ્વામીની પાવન મૂર્તિઓ ભૂમિ ભેટ થઈ.',
+  'history.2.p2.title': 'ગહન વિચાર-વિમર્શ',
+  'history.2.p2.desc': 'ખારા ગામમાં જૈન સમાજ ન હોવાથી, કુવાળા અને ભાભર — બન્ને જૈન સંઘ ત્યાં પહોંચ્યા. ભારે હૈયે સૌ વિચારવા લાગ્યા: ભગવાન ક્યા ગામ પધારશે?',
+  'history.2.p3.title': 'અનોખો નિર્ણય',
+  'history.2.p3.desc': 'ગાડું ભાભર મહાજનનું, બળદ કુવાળા મહાજનના. ભગવાનને ગાડામાં બિરાજમાન કર્યા — અને નક્કી કર્યું કે ગાડું જ્યાં જાય ત્યાં ભગવાન પધારશે.',
+  'history.2.p4.title': 'એ ઐતિહાસિક વળાંક',
+  'history.2.p4.desc': 'ભારે પૈડાં ગડગડ્યાં, બળદ આગળ ધપ્યા, સૌ શ્વાસ રોકી ઊભા. ચૌટા પર ગાડું — અને ત્યારે... સ્વયં ઈશ્વરની ઇચ્છાથી, ગાડું કુવાળા ભણી વળ્યું!',
+  'history.2.p5.title': 'ભવ્ય સ્વાગત',
+  'history.2.p5.desc': 'કુવાળાના દ્વારે ઉત્સવ છવાઈ ગયો. ફૂલોની વૃષ્ટિ, જયઘોષ, અને ભક્તોના ભાવ — ભગવાન પધાર્યા. કુવાળા ધન્ય બન્યું!',
+  'history.2.p6.title': 'જીવંત ચમત્કાર',
+  'history.2.p6.desc': 'આજે ત્રિગડુ કુવાળામાં સ્થિત છે. ભક્તો ના\'ધ્યું છે — સવારે ભગવાન બાળ જેવા, બપોરે યુવાન, ને સાંજે પ્રૌઢ જેવા ભાસે. જીવনના ઉષ:કાળ થી અસ્ત સુધી — ભગવાન સૌની સાથે!',
+  'history.3.title': 'કન્યા વિક્રય નિષેધ',
+  'history.3.desc': 'ગુરુદેવના ઉપદેશથી 17 ગામોને કન્યા વિક્રય જેવા મહાપાપથી બચાવ્યા અને લગ્ન પ્રસંગોમાં થતા ખોટા ખર્ચાઓને અટકાવ્યા.',
+  'history.4.title': 'વાવાઝોડાનો ચમત્કાર',
+  'history.4.desc': 'ભયંકર વાવાઝોડું ચાલું થયું દેરાસરની બોર્ડર બનાવેલા પતરાઓ ઉડવા લાગ્યા... પણ જ્ઞાની ગુરુની સમયસૂચકતાના કારણે બધા બચી ગયા.',
+  'history.5.title': 'રથમાં પધરામણી',
+  'history.5.desc': 'કુવાળા નગરનો પ્રવેશદ્વાર આવતા જ બગીનું એન્જિન બંધ થઈ ગયું... સદ્ગુરુદેવ રથમાં બિરાજમાન થયા અને શ્રાવકોએ સ્વયં ચલાવી પ્રવેશ કરાવ્યો.',
+  'history.6.title': 'મોરલાની આરતી',
+  'history.6.desc': 'સાંજની આરતીના સમયે શિખર પર મોરલાનું આગમન થાય છે, જે પરમાત્મા પ્રત્યેની અપાર ભક્તિનું જીવંત અને અલૌકિક ઉદાહરણ છે.',
 
   // Registration form
   'form.name':            'તમારું નામ',

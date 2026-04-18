@@ -1,36 +1,31 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import HeroSection from '@/components/home/HeroSection';
-import QuickStats from '@/components/home/QuickStats';
-import FeaturedLegacy from '@/components/home/FeaturedLegacy';
-import { sanityFetch } from '@/lib/sanity/client';
-import { FEATURED_MONUMENTS_QUERY, SITE_STATS_QUERY } from '@/lib/sanity/queries';
-import type { Monument } from '@/components/home/FeaturedLegacy';
+import MiraculousJinalay from '@/components/home/MiraculousJinalay';
+import FlowingBackground from '@/components/ui/FlowingBackground';
+import SacredHistory from '@/components/home/SacredHistory';
 
 export const metadata: Metadata = {
   title: 'Home',
   description: 'Welcome to Kuvala — discover 400+ years of heritage, temples, ancestors, and living traditions.',
 };
 
-// ISR: revalidate every hour
 export const revalidate = 3600;
 
 export default async function HomePage() {
-  // Fetches from Sanity CDN (gracefully returns null/[] if unconfigured)
-  const [monuments, stats] = await Promise.all([
-    sanityFetch<Monument[]>(FEATURED_MONUMENTS_QUERY),
-    sanityFetch<any>(SITE_STATS_QUERY)
-  ]);
-
   return (
-    <>
+    <div className="flex flex-col w-full min-h-screen relative bg-transparent">
       <HeroSection />
-      <Suspense fallback={<div className="section-pad-sm" />}>
-        <QuickStats initialStats={stats} />
-      </Suspense>
-      <Suspense fallback={<div className="section-pad text-center text-stone">Loading heritage…</div>}>
-        <FeaturedLegacy monuments={monuments} />
-      </Suspense>
-    </>
+      
+      {/* 
+        The webgl background is fixed behind. The SacredHistory section 
+        scrolls naturally but is transparent to reveal the flowing liquid behind it 
+      */}
+      <div className="relative w-full z-10">
+        <FlowingBackground />
+        <SacredHistory />
+      </div>
+
+      <MiraculousJinalay />
+    </div>
   );
 }

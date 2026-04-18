@@ -9,16 +9,25 @@
 :root {
   /* User-requested Light Theme: Parchment & Vermillion (Refined for Contrast) */
   --color-paper:      #FCF9F1;  /* Background: Warm, paper-like base */
-  --color-charcoal:   #1A1A1A;  /* Primary Text: Deep charcoal */
+  --color-charcoal:   #241C15;  /* Primary Text: Deep Espresso/Umber (More premium than pure black) */
   --color-kumkum:     #9A2A2A;  /* Accent 1: Deepened red/crimson for strong contrast */
-  --color-old-gold:   #9E6B00;  /* Deepened Bronze/Gold for readable text on light backgrounds */
+  --color-old-gold:   #AF8231;  /* Refined Antique Gold: Richer, more metallic bronze-gold for heritage labels */
   --color-antique:    #C08A00;  /* Deeper Antique Gold for gradients */
   --color-white:      #FFFFFF;  /* Surface */
 
+  /* Structural UI Elements (Light Default) */
+  --story-card-glass: rgba(255, 255, 255, 0.3);
+  --story-card-blur: 8px;
+  --hero-title-clr: var(--color-charcoal);
+  --hero-desc-clr: rgba(36, 28, 21, 0.9); /* charcoal / 90% */
+  --main-bg-image: url('/images/backgrounds/LightTheme_JirawalaDada.png');
+  --bg-opacity-home: 0.80;
+  --bg-opacity-interior: 0.30;
+
   /* User-requested Dark Theme: Temple Night */
   --color-obsidian:   #0F1115;  /* Deep, dark sky/stone base */
-  --color-cloud:      #E5E7EB;  /* Soft white text */
-  --color-amber:      #F59E0B;  /* Glowing gold accent */
+  --color-cloud:      #F0EDE1;  /* Soft starlight ivory for historic feel instead of stark white */
+  --color-amber:      #D4AF37;  /* True Metallic Gold instead of default amber */
   --color-crimson:    #991B1B;  /* Muted crimson */
   --color-slate-dark: #1C1F26;  /* Elevated cards */
 
@@ -48,6 +57,11 @@
   --heading-font:     'Cinzel', serif;
   --body-font:        'Inter', system-ui, sans-serif;
   --gujarati-font:    'Noto Sans Gujarati', sans-serif;
+
+  /* Light mode story section backgrounds (override component dark hardcodes) */
+  --story-bg:         #1C1207;
+  --story-card-bg:    rgba(28, 18, 7, 0.80);
+  --story-text:       #E5E7EB;
 
   /* Fluid spacing scale */
   --space-xs:  clamp(0.25rem, 0.5vw,  0.5rem);
@@ -109,9 +123,22 @@
   --color-parchment:var(--color-cloud); /* text parchment becomes cloud text */
   --color-earth:    var(--color-cloud);
   --color-gold:     var(--color-amber);
-  --color-gold-light: #FDE68A; /* Bright yellow/amber for dark mode title gradients */
+  --color-gold-light: #EACE84; /* Elegant warm starlight gold for dark mode title gradients */
   --color-terracotta: var(--color-crimson);
   --color-stone:    var(--color-cloud);
+
+  /* Dark mode story section backgrounds */
+  --story-bg:         #0F1115;
+  --story-card-bg:    rgba(15, 17, 21, 0.45); /* Legacy fallback */
+  --story-text:       var(--color-cloud);
+
+  /* Structural UI Elements (Dark Override) */
+  --story-card-glass: rgba(15, 17, 21, 0.45);
+  --hero-title-clr: #F0EDE1;
+  --hero-desc-clr: rgba(240, 237, 225, 0.9); /* starlight / 90% */
+  --main-bg-image: url('/images/backgrounds/DarkTheme_JirawalaDada.png');
+  --bg-opacity-home: 0.60;
+  --bg-opacity-interior: 0.35;
 }
 
 /* ── Tailwind v4 Theme Integration ─────────────────────────── */
@@ -128,6 +155,7 @@
   --color-slate-mid:    var(--color-slate-mid);
   --color-stone:        var(--color-stone);
   --color-parchment:    var(--color-parchment);
+  --color-cloud:        var(--color-cloud);
   --color-ivory:        var(--color-ivory);
   --font-sans:          var(--body-font);
   --font-display:       var(--heading-font);
@@ -141,15 +169,8 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-  tab-size: 4;
-  font-feature-settings: 'kern' 1, 'liga' 1;
-}
-
 body {
-  background-color: var(--background);
+  background-color: transparent; /* Transparent so fixed ThemeBackground (z-[-1]) shows through */
   color: var(--foreground);
   font-family: var(--body-font);
   font-size: var(--text-base);
@@ -157,6 +178,16 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+/* Base fallback colour on html so there is never a white flash behind the image */
+html {
+  background-color: var(--background);
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 /* Selection */
@@ -224,6 +255,7 @@ body {
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.75rem;
 }
 
 .glass-dark {
@@ -231,6 +263,12 @@ body {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(201, 152, 42, 0.25);
+  padding: 0.75rem;
+}
+
+.glass-dark ::selection {
+  background-color: var(--color-gold);
+  color: var(--background);
 }
 
 .glass-parchment {
@@ -318,3 +356,128 @@ body {
 .section-pad-sm { padding-block: var(--space-2xl); }
 .container-narrow { max-width: min(90rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }
 .container-wide   { max-width: min(100rem, 100% - 2 * var(--space-lg)); margin-inline: auto; }
+
+/* ── Gujarati Typography Overrides (G3) ─────────────────────── */
+/* Gujarati glyphs have taller ascenders — normalize line-height to prevent overflow */
+.font-gujarati {
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+h1.font-gujarati, h2.font-gujarati, h3.font-gujarati {
+  line-height: 1.35;
+}
+
+/* ── Heritage Decorative Quote Mark (C2) ────────────────────── */
+.heritage-quote-mark {
+  font-family: 'Cinzel', serif;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-gold);
+  opacity: 0.25;
+  position: absolute;
+  top: -1.5rem;
+  left: -0.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Light Mode: Story Section Overrides (M1) ───────────────── */
+/* Ensure stories are legible on light backgrounds and do not block the global theme image */
+[data-theme="light"] .story-bg {
+  background-color: transparent !important;
+}
+
+[data-theme="light"] .story-card {
+  border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+/* Sections that intentionally stay dark even in light mode.
+   Use a semi-transparent tint — NOT solid — so the ThemeBackground image shows through. */
+.always-dark {
+  /* background handled via inline style (rgba) on the element */
+  color: #F0EDE1;
+}
+
+/* ── Option 2: Scroll Zone marker ──────────────────────────── */
+/* Applied to any section whose content is scroll-progress driven.
+   Lenis reads this class to reduce touch multiplier inside zones.  */
+.scroll-zone {
+  /* Sentinel class: no visual styles — used by SmoothScrollWrapper to detect storytelling zones */
+  contain: layout style;
+}
+
+/* ── Option 4: CSS Scroll Snap utilities ───────────────────── */
+/* 
+ * .scroll-snap-container  → wraps all snap children
+ * .scroll-snap-start      → each chapter/section that should snap into view
+ *
+ * Note: We use 'proximity' (not 'mandatory') to avoid aggressive snapping
+ * that fights with the sticky scroll-driven layouts. 'proximity' only snaps
+ * when the user is already near a snap point, giving natural feel.
+ */
+.scroll-snap-container {
+  scroll-snap-type: y proximity;
+  overflow-y: scroll;
+  height: 100dvh;
+}
+
+/* The <main> element gets a softer snap on the chapter boundaries.
+   We apply proximity snap on the root scroll container.             */
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 1024px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+}
+
+/* Each chapter/section entry point snaps the viewport to its start */
+.scroll-snap-start {
+  scroll-snap-align: start;
+  scroll-snap-stop: always; /* → do not skip past this stop even on fast fling (key for mobile!) */
+}
+
+/* 
+ * Special snapping for sections before/including the footer 
+ * to ensure they don't 'jump' on mobile when scrolling up/down.
+ */
+.scroll-snap-footer {
+  scroll-snap-align: end;
+  scroll-snap-stop: always;
+}
+
+.scroll-snap-bento {
+  scroll-snap-align: start end;
+  scroll-snap-stop: always;
+}
+
+/* 
+ * .scroll-snap-section
+ * Snaps to the start and occupies full height context if possible. 
+ * Better for mobile cards that shouldn't be missed.
+ */
+.scroll-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.scroll-snap-container-mandatory {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto; /* Required for snapping to work on the container itself */
+  height: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* Story cards — snap to start so narrative chapter titles are always
+   fully in view before the reader sees the paragraph               */
+.story-snap {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal; /* allow normal (skip-able) stops within a chapter */
+}
+
+
