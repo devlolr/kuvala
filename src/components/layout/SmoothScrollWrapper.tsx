@@ -16,6 +16,8 @@
  */
 
 import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Lenis from 'lenis';
 
@@ -31,6 +33,8 @@ export default function SmoothScrollWrapper({ children }: { children: React.Reac
   const lingerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const lenis = new Lenis({
       lerp: 0.1,
       duration: 1.5,
@@ -39,8 +43,13 @@ export default function SmoothScrollWrapper({ children }: { children: React.Reac
       prevent: (node: Element) => node.classList.contains('lenis-prevent'),
     });
 
+    const handleLenisScroll = () => {
+      ScrollTrigger.update();
+    };
+
     lenisRef.current = lenis;
     (window as any).lenis = lenis;
+    lenis.on('scroll', handleLenisScroll);
 
     /* ── RAF loop ── */
     let rafId: number;
@@ -87,12 +96,19 @@ export default function SmoothScrollWrapper({ children }: { children: React.Reac
       }
     };
 
+    const handleResize = () => ScrollTrigger.refresh();
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    ScrollTrigger.refresh();
 
     return () => {
       cancelAnimationFrame(rafId);
+      lenis.off('scroll', handleLenisScroll);
       lenis.destroy();
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
       if (lingerTimerRef.current) clearTimeout(lingerTimerRef.current);
     };
   }, []);
