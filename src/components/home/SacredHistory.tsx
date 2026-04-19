@@ -8,6 +8,7 @@ import PeacockSequence from './PeacockSequence';
 import ScrollHint from '@/components/ui/ScrollHint';
 import ChapterProgress from '@/components/ui/ChapterProgress';
 import { useDarkMode } from '@/hooks/useDarkMode';
+import StormMiracle from './StormMiracle';
 
 const timelineData = [
   {
@@ -374,6 +375,10 @@ export default function SacredHistory() {
       {/* Chapters 3-5 — each snaps on fast scroll */}
       <StoryCard item={timelineData[2]} index={2} />
       <StoryCard item={timelineData[3]} index={3} />
+      
+      {/* Full immersive narrative for Storm Miracle */}
+      <StormMiracle />
+
       <StoryCard item={timelineData[4]} index={4} />
 
       {/* Finale: Peacock Sequence */}

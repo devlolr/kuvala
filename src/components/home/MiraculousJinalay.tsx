@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useDarkMode } from '@/hooks/useDarkMode';
 
 const bentoItems = [
   {
@@ -24,12 +23,10 @@ const bentoItems = [
 ];
 
 export default function MiraculousJinalay() {
-  const { theme } = useDarkMode();
-
   return (
-    <section className={`relative z-10 py-24 md:py-32 overflow-hidden min-h-screen flex items-center scroll-snap-bento ${theme === 'dark' ? 'bg-[#0F1115] text-[#E5E7EB]' : 'bg-transparent text-charcoal'}`}>
+    <section className="relative py-24 md:py-32 bg-[#0F1115] text-[#E5E7EB] overflow-hidden min-h-screen flex items-center">
       {/* Subtle Background Elements */}
-      <div className={`absolute top-0 left-0 w-full h-full pointer-events-none ${theme === 'dark' ? 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-[#0F1115] to-[#0F1115]' : ''}`} />
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#D4AF37]/5 via-[#0F1115] to-[#0F1115] pointer-events-none" />
       
       <div className="container-wide relative z-10 mx-auto px-6 md:px-12 lg:px-20 max-w-7xl">
         <div className="mb-16 text-center md:text-left">
@@ -45,36 +42,36 @@ export default function MiraculousJinalay() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className={`font-display text-4xl md:text-5xl lg:text-7xl font-bold break-words leading-tight ${theme === 'light' ? 'text-charcoal' : 'text-white'}`}
+            className="font-display text-4xl md:text-5xl lg:text-7xl text-white font-bold break-words leading-tight"
           >
             The Miraculous Jinalay
           </motion.h2>
         </div>
 
         {/* Bento Grid */}
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[auto]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[auto]">
           
           {/* Primary Tile (Spans 2 columns on tablet/desktop) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className={`md:col-span-2 md:row-span-2 rounded-[2.5rem] border-2 border-[#D4AF37]/30 overflow-hidden relative group p-8 md:p-16 lg:p-20 min-h-[500px] flex flex-col justify-end ${theme === 'light' ? 'bg-white/60 backdrop-blur-lg' : 'glass-dark'}`}
+            className="md:col-span-2 md:row-span-2 glass-dark rounded-[2.5rem] border-2 border-[#D4AF37]/30 overflow-hidden relative group p-8 md:p-16 lg:p-20 min-h-[500px] flex flex-col justify-end"
           >
              <div 
                className="absolute inset-0 bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-1000 scale-105 group-hover:scale-100"
                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1549488344-c6a6552a9d80?q=80&w=2000')" }}
              />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/70 to-transparent" />
+             <div className="absolute inset-0 bg-gradient-to-t from-[#0F1115] via-[#0F1115]/70 to-transparent" />
              
-            <div className="relative z-10 w-full">
-              <span className="text-[#D4AF37] font-mono text-sm tracking-wider mb-6 block border border-[#D4AF37]/40 w-max px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md">Est. VS 1903</span>
-              <h3 className={`text-3xl md:text-4xl lg:text-6xl font-display font-bold mb-6 drop-shadow-2xl leading-tight break-words ${theme === 'light' ? 'text-charcoal' : 'text-white'}`}>
-                {bentoItems[0].title}
-              </h3>
-              <p className={`text-lg md:text-xl max-w-2xl leading-relaxed font-medium break-words ${theme === 'light' ? 'text-charcoal' : 'text-white/90'}`}>
-                {bentoItems[0].description}
-              </p>
+             <div className="relative z-10 w-full">
+                <span className="text-[#D4AF37] font-mono text-sm tracking-wider mb-6 block border border-[#D4AF37]/40 w-max px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md">Est. VS 1903</span>
+                <h3 className="text-3xl md:text-4xl lg:text-6xl font-display font-bold text-white mb-6 drop-shadow-2xl leading-tight break-words">
+                  {bentoItems[0].title}
+                </h3>
+                <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed font-medium break-words">
+                  {bentoItems[0].description}
+                </p>
              </div>
           </motion.div>
 
@@ -84,11 +81,11 @@ export default function MiraculousJinalay() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className={`rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] ${theme === 'light' ? 'bg-white/60 backdrop-blur-lg' : 'glass-dark'}`}
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px]"
           >
             <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">🔔</div>
             <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[1].title}</h4>
-            <p className={`text-sm md:text-base leading-relaxed break-words ${theme === 'light' ? 'text-charcoal' : 'text-white/70'}`}>{bentoItems[1].description}</p>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed break-words">{bentoItems[1].description}</p>
           </motion.div>
 
           {/* Secondary Tile 2 */}
@@ -97,22 +94,29 @@ export default function MiraculousJinalay() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className={`rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] ${theme === 'light' ? 'bg-white/60 backdrop-blur-lg' : 'glass-dark'}`}
+            className="glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px]"
           >
             <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">🦚</div>
             <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[2].title}</h4>
-            <p className={`text-sm md:text-base leading-relaxed break-words ${theme === 'light' ? 'text-charcoal' : 'text-white/70'}`}>{bentoItems[2].description}</p>
+            <p className="text-white/70 text-sm md:text-base leading-relaxed break-words">{bentoItems[2].description}</p>
           </motion.div>
 
           {/* Secondary Tile 3 (Full width across bottom of grid) */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4 }}
-            className={`rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 flex flex-col justify-center transition-all duration-300 shadow-xl min-h-[220px] md:col-span-3 ${theme === 'light' ? 'bg-white/60 backdrop-blur-lg' : 'glass-dark'}`}>
-            <div
-              className="w-12 h-12 rounded-full border border-[#D4AF37]/30 mb-5 flex items-center justify-center bg-[#D4AF37]/5">✨
-            </div>
-            <h4 className="text-xl md:text-2xl font-display font-semibold text-[#D4AF37] mb-3 break-words">{bentoItems[3].title}
-            </h4>
-            <p className={`text-sm md:text-base leading-relaxed break-words ${theme === 'light' ? 'text-charcoal' : 'text-white/70'}`}>{bentoItems[3].description}</p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="md:col-span-3 mt-2 glass-dark rounded-[2rem] border border-[#D4AF37]/20 hover:border-[#D4AF37]/50 p-8 md:p-14 lg:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8 overflow-hidden relative group"
+          >
+              <div className="absolute right-0 top-0 w-64 h-full bg-[radial-gradient(circle,_rgba(212,175,55,0.1)_0%,_transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              <div className="flex-1 w-full">
+                <h4 className="text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-[#D4AF37] mb-4 break-words">{bentoItems[3].title}</h4>
+                <p className="text-white/80 text-base md:text-lg lg:text-xl leading-relaxed max-w-4xl break-words">{bentoItems[3].description}</p>
+              </div>
+            <div className="hidden md:flex w-20 h-20 rounded-full border border-[#D4AF37]/30 items-center justify-center bg-[#D4AF37]/5 shrink-0">
+                ✨
+              </div>
           </motion.div>
 
         </div>
